@@ -1,0 +1,66 @@
+@import "../../../sass/variables";
+
+.Login {
+  font: 13px 'Readex Pro', sans-serif;
+  line-height: 13px;
+  font-weight: 400px;
+  position: relative;
+}
+
+.LoginBarra {
+  font-size: 87px;
+  left: 11px;
+  top: 210px;
+}
+
+.LoginCenter {
+  width: 414px;
+  font-size: 12px;
+  padding-top: 100px;
+}
+
+.LoginLogo {
+  margin-bottom: 14px;
+}
+
+.LoginLogo span {
+  font-size: 39px;
+}
+
+.LoginForm {
+  margin-top: 0px;
+}
+
+.LoginForm input {
+  height: 26px;
+  font: 13px 'Readex Pro', sans-serif;
+  line-height: 13px;
+  margin-bottom: 12px;
+  padding-top: 5.5px;
+  padding-bottom: 5.5px;
+}
+
+.LoginTextOlvido {
+  color: $main-color;
+  font-size: 12px;
+  font-weight: 500;
+  padding-top: 4px;
+}
+
+.LoginTextOlvido:hover {
+  color: $error-color;
+}
+
+.LoginBtnIniciarSesion {
+  color: $default-color;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  background: $main-color;
+  padding: 7px 8.6px !important;
+  border: 0px;
+}
+
+.LoginBtnIniciarSesion:hover {
+  cursor: pointer;
+  background: $main-color;
+}

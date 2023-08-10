@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { CustomThemeProvider } from "./theme";
-import { App } from './routes/app'
+import { App } from './routes/app';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

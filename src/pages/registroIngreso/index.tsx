@@ -1,0 +1,1 @@
+export { Ingresos } from './ingresos'
