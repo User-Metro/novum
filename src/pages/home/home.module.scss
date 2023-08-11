@@ -55,10 +55,6 @@
   font-size: 55.798px;
 }
 
-.RegistarBanco {
-
-}
-
 .ModalForm input {
   margin-bottom: 6px;
 }
@@ -128,7 +124,7 @@
   color: rebeccapurple;
 }
 
-.prueba li .ant-menu-item-selected{
+.prueba ul li .ant-menu-item-selected :hover{
   background: red !important;
 }
 
