@@ -6,8 +6,7 @@ import { Layout, Button, Menu, theme } from "antd";
 
 import style from "./home.module.scss";
 import { Resumen } from '../../components/molecules/resumen';
-//import { Resumen } from "./Resumen.tsx";
-//import { RegistrarCajaOBanco } from "./RegisterBank/RegistrarCajaOBanco.tsx";
+import { RegistrarCajaOBanco } from '../../hooks/RegistrarCajaOBanco';
 //import { RegistrarIngresosFuturos } from "./RegisterPay/RegistrarIngresosFuturos.tsx";
 //import { RegistrarEgresosFuturos } from "./RegisterDischargeCash/RegistrarEgresosFuturos.tsx";
 
@@ -96,7 +95,7 @@ export const Home = (props: any) => {
     if (props.pos === "1") {
       return <Resumen cambioRegistroBan={cambioRegistroBan}/>;
     } else if (props.pos === "2") {
-      return <div>RegistrarCajaOBanco</div>;
+      return <RegistrarCajaOBanco cambioRegistroBan={undefined}/>;
     } else if (props.pos === "3") {
       return <div>RegistrarIngresosFuturos</div>;
     } else if (props.pos === "4") {

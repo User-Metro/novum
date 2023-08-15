@@ -29,7 +29,7 @@
 
 .HomeBienvenida {
   width: 355px;
-  color: #8C8C8C;
+  color: $gray-color;
   font-size: 18.3px;
   line-height: 22px;
   font-weight: 400;
@@ -37,7 +37,7 @@
 }
 
 .HomeTitle {
-  color: #000000;
+  color: $black-color;
   font-size: 30px;
   font-weight: 500;
   line-height: 30px;
@@ -51,7 +51,7 @@
 }
 
 .HomeIcoBienvenida:before {
-  color: #8C8C8C;
+  color: $gray-color;
   font-size: 55.798px;
 }
 
@@ -61,33 +61,33 @@
 
 .ModalForm input::-webkit-input-placeholder, .ant-picker-input input::-webkit-input-placeholder
 {
- 	color: #000000 !important;
+ 	color: $black-color !important;
 }
 
 .ModalForm input::-o-input-placeholder, .ant-picker-input input::-o-input-placeholder
 {
- 	color: #000000 !important;
+ 	color: $black-color !important;
 }
 
 .ModalForm input::-ms-input-placeholder, .ant-picker-input input::-ms-input-placeholder
 {
- 	color: #000000 !important;
+ 	color: $black-color !important;
 }
 
 .ModalForm input:-moz-input-placeholder, .ant-picker-input input:-moz-input-placeholder
 {
- 	color: #000000 !important;
+ 	color: $black-color !important;
 }
 
 .ModalForm input::-moz-input-placeholder, .ant-picker-input input::-moz-input-placeholder
 {
- 	color: #000000 !important;
+ 	color: $black-color !important;
 }
 
 .ModalSelect {
   width: 232px;
   height: 32px;
-  color: #000000;
+  color: $black-color;
   padding-left: 8px;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
@@ -97,7 +97,7 @@
 
 .ModalCantidad {
   width: 232px;
-  color: #000000;
+  color: $black-color;
 }
 
 .ModalCantidadMr {
@@ -110,7 +110,7 @@
 }
 
 .mobile{
-  background: white !important;
+  background: $default-color !important;
   box-shadow: none !important;
 }
 
@@ -120,11 +120,6 @@
 }
 
 .ant-menu-light .ant-menu-item-selected:active{
-  background: black !important;
-  color: rebeccapurple;
-}
-
-.prueba ul li .ant-menu-item-selected :hover{
-  background: red !important;
+  background: $black-color !important;
 }
 

@@ -1,0 +1,72 @@
+@import "../../../sass/variables";
+
+.ModalForm input {
+  margin-bottom: 6px;
+}
+
+.ModalForm input::-webkit-input-placeholder, .ant-picker-input input::-webkit-input-placeholder
+{
+ 	color: $black-color !important;
+}
+
+.ModalForm input::-o-input-placeholder, .ant-picker-input input::-o-input-placeholder
+{
+ 	color: $black-color !important;
+}
+
+.ModalForm input::-ms-input-placeholder, .ant-picker-input input::-ms-input-placeholder
+{
+ 	color: $black-color !important;
+}
+
+.ModalForm input:-moz-input-placeholder, .ant-picker-input input:-moz-input-placeholder
+{
+ 	color: $black-color !important;
+}
+
+.ModalForm input::-moz-input-placeholder, .ant-picker-input input::-moz-input-placeholder
+{
+ 	color: $black-color !important;
+}
+
+.ModalSelect {
+  width: 232px;
+  height: 32px;
+  color: $black-color;
+  padding-left: 8px;
+  border: 1px solid $default-color;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  margin-right: 8px;
+}
+
+.ModalCantidad {
+  width: 232px;
+  color: $black-color;
+}
+
+.ModalCantidadMr {
+  margin-right: 8px !important;
+}
+
+.ModalCantidad input {
+  height: 10px !important;
+  padding-top: 6px !important;
+}
+
+.btnCreateAccount{
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  background: $main-color !important;
+  border-radius: 10px !important;
+  text-transform: full-size-kana !important;
+  padding: 5px 14px !important;
+}
+
+@media all and (max-width: 717px){
+  .itemButton{
+    margin-top: -9px;
+    position: absolute;
+    right: 30px;
+  }
+}
