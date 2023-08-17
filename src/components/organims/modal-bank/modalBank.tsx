@@ -10,8 +10,8 @@ import { useState } from "react";
 import type { DatePickerProps } from "antd";
 import * as Yup from "yup";
 import fn from "../../../utility";
-import fnc from '../../molecules/banco/funciones';
-import fng from '../../molecules/ingresos/funciones';
+import fnc from "../../molecules/banco/funciones";
+import fng from "../../molecules/ingresos/funciones";
 
 let data: any[];
 const user_id = localStorage.getItem("user_id");
@@ -103,44 +103,43 @@ export const ModalBank = ({
     }, 800);
   };
 
-/*##############################*/
+  /*##############################*/
 
-async function cargarDatosCajaBanco (ejecutarSetCargando=true,buscar=false) {
-  let scriptURL = 'https://admin.bioesensi-crm.com/listCajasBancos';
-  let dataUrl = {user_id};
-  let busqueda = "";
+  async function cargarDatosCajaBanco(
+    ejecutarSetCargando = true,
+    buscar = false
+  ) {
+    let scriptURL = "https://admin.bioesensi-crm.com/listCajasBancos";
+    let dataUrl = { user_id };
+    let busqueda = "";
 
-  if(buscar) {
-    scriptURL = 'https://admin.bioesensi-crm.com/listCajasBancosB';
-    busqueda = fn.obtenerValor('#txtSearch');
-    dataUrl = {user_id, /*busqueda*/};
+    if (buscar) {
+      scriptURL = "https://admin.bioesensi-crm.com/listCajasBancosB";
+      busqueda = fn.obtenerValor("#txtSearch");
+      dataUrl = { user_id /*busqueda*/ };
+    }
+
+    await fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify(dataUrl),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((resp) => resp.json())
+      .then(function (info) {
+        fnc.mostrarData(info);
+        if (ejecutarSetCargando) setCargandoVisible(false);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        console.error("Error!", error.message);
+      });
   }
 
-  await fetch(scriptURL, {
-    method: 'POST',
-    body: JSON.stringify(dataUrl),
-    headers:{
-      'Content-Type': 'application/json'
-    }
-  })
-  .then((resp) => resp.json())
-  .then(function(info) {
-    fnc.mostrarData(info);
-    if(ejecutarSetCargando)
-      setCargandoVisible(false)
-  })
-  .catch(error => {
-    console.log(error.message);
-    console.error('Error!', error.message);
-  });
-}
+  cargarDatosCajaBanco();
 
-cargarDatosCajaBanco()
-
-
-
-
-/*const onChange: DatePickerProps["onChange"] = (date, dateString) => {
+  /*const onChange: DatePickerProps["onChange"] = (date, dateString) => {
   setInitialValues({
     hdId: fn.obtenerValor("#hdId")
     txtNombre: fn.obtenerValor("#txtNombre"),
@@ -235,81 +234,77 @@ cargarDatosCajaBanco()
                     .required("* Cantidad actual"),
                 })
           }
-          onSubmit={
-           
-              (values, actions) => {
-                let scriptURL = "https://admin.bioesensi-crm.com/altaCajaBanco";
-    
-                if (values.hdId)
-                  scriptURL = "https://admin.bioesensi-crm.com/editarCajaBanco";
-    
-                const txtNombre = values.txtNombre;
-                const stTipo = values.stTipo;
-                const txtCantidadActual = values.txtCantidadActual;
-                const caja_banco_id = values.hdId;
-                
-                const txtConcepto = values.txtConcepto;
-              
-                const stCategoria = values.stCategoria;
-                const txtMonto = values.txtMonto;
-                const txtFechaTentativaCobro = values.txtFechaTentativaCobro;
-                const ingresos_futuros_id = values.hdId;
-    
-                const dataU = {
-                  txtNombre,
-                  stTipo,
-                  txtCantidadActual,
-                  caja_banco_id,
-                
-                  txtConcepto,
-               
-                  stCategoria,
-                  txtMonto,
-                  user_id,
-                  txtFechaTentativaCobro,
-                  ingresos_futuros_id,
-                };
-    
-                setConfirmLoading(true);
-    
-                fetch(scriptURL, {
-                  method: "POST",
-                  body: JSON.stringify(dataU),
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                })
-                  .then((resp) => resp.json())
-                  .then(function (dataR) {
-                    messageApi.open({
-                      type: "success",
-                      content: "Los datos fueron guardados con éxito",
-                    });
-    
-                    setInitialValues({
-                      hdId: "",
-                      txtNombre: "",
-                      stTipo: "0",
-                      txtCantidadActual: "",
-                      txtConcepto: "",
-                      stCategoria: "",
-                      txtMonto: "",
-                      txtFechaTentativaCobro: "",
-                    });
-    
-                    setTimeout(() => {
-                      setOpen(false);
-                      setConfirmLoading(false);
-                      cargarDatosCajaBanco(false);
-                    }, 1200);
-                  })
-                  .catch((error) => {
-                    console.log(error.message);
-                    console.error("Error!", error.message);
-                  });
-              }
-            
-          }
+          onSubmit={(values, actions) => {
+            let scriptURL = "https://admin.bioesensi-crm.com/altaCajaBanco";
+
+            if (values.hdId)
+              scriptURL = "https://admin.bioesensi-crm.com/editarCajaBanco";
+
+            const txtNombre = values.txtNombre;
+            const stTipo = values.stTipo;
+            const txtCantidadActual = values.txtCantidadActual;
+            const caja_banco_id = values.hdId;
+
+            const txtConcepto = values.txtConcepto;
+
+            const stCategoria = values.stCategoria;
+            const txtMonto = values.txtMonto;
+            const txtFechaTentativaCobro = values.txtFechaTentativaCobro;
+            const ingresos_futuros_id = values.hdId;
+
+            const dataU = {
+              txtNombre,
+              stTipo,
+              txtCantidadActual,
+              caja_banco_id,
+
+              txtConcepto,
+
+              stCategoria,
+              txtMonto,
+              user_id,
+              txtFechaTentativaCobro,
+              ingresos_futuros_id,
+            };
+
+            setConfirmLoading(true);
+
+            fetch(scriptURL, {
+              method: "POST",
+              body: JSON.stringify(dataU),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+              .then((resp) => resp.json())
+              .then(function (dataR) {
+                messageApi.open({
+                  type: "success",
+                  content: "Los datos fueron guardados con éxito",
+                });
+
+                setInitialValues({
+                  hdId: "",
+                  txtNombre: "",
+                  stTipo: "0",
+                  txtCantidadActual: "",
+                  txtConcepto: "",
+                  stCategoria: "",
+                  txtMonto: "",
+                  txtFechaTentativaCobro: "",
+                });
+
+                setTimeout(() => {
+                  setOpen(false);
+                  setConfirmLoading(false);
+                  cargarDatosCajaBanco(false);
+                }, 1200);
+              })
+              .catch((error) => {
+                console.log(error.message);
+                console.error("Error!", error.message);
+              });
+          }}
         >
           {({ handleBlur, handleChange, handleSubmit, errors, values }) => {
             return (
