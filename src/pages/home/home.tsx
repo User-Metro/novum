@@ -7,7 +7,8 @@ import { Layout, Button, Menu, theme } from "antd";
 import style from "./home.module.scss";
 import { Resumen } from '../../components/molecules/resumen';
 import { RegistrarCajaOBanco } from '../../hooks/RegistrarCajaOBanco';
-//import { RegistrarIngresosFuturos } from "./RegisterPay/RegistrarIngresosFuturos.tsx";
+import { RegistrarIngresosFuturos } from '../../hooks/RegistrarIngresosFuturos'
+
 //import { RegistrarEgresosFuturos } from "./RegisterDischargeCash/RegistrarEgresosFuturos.tsx";
 
 import AppBar from "@mui/material/AppBar";
@@ -97,7 +98,7 @@ export const Home = (props: any) => {
     } else if (props.pos === "2") {
       return <RegistrarCajaOBanco cambioRegistroBan={undefined}/>;
     } else if (props.pos === "3") {
-      return <div>RegistrarIngresosFuturos</div>;
+      return <RegistrarIngresosFuturos cambioRegistroBan={undefined}/>;
     } else if (props.pos === "4") {
       return <div>RegistrarEgresosFuturos</div>;
     }

@@ -5,6 +5,8 @@ import type { TabsProps } from "antd";
 import { Login } from '../../components/organims/login';
 import { Registro } from '../../components/organims/Registro';
 
+localStorage.setItem('site', "http://localhost:3001");
+
 const onChange = (key: string) => {
   console.log(key);
 };

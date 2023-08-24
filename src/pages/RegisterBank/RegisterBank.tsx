@@ -8,6 +8,7 @@ import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const user_id = localStorage.getItem('user_id');
 
@@ -15,12 +16,12 @@ export const TableRegistrarCajaOBanco = () => {
 const [cargandoVisible, setCargandoVisible] = useState(true);   
 
 async function cargarDatos (ejecutarSetCargando=true,buscar=false) {
-  let scriptURL = 'https://admin.bioesensi-crm.com/listCajasBancos';
+  let scriptURL = localStorage.getItem('site')+"/listCajasBancos";
   let dataUrl = {user_id};
   let busqueda = "";
 
   if(buscar) {
-    scriptURL = 'https://admin.bioesensi-crm.com/listCajasBancosB';
+    scriptURL = localStorage.getItem('site')+"/listCajasBancosB";
     busqueda = fn.obtenerValor('#txtSearch');
     dataUrl = {user_id, /*busqueda*/};
   }
@@ -44,7 +45,14 @@ async function cargarDatos (ejecutarSetCargando=true,buscar=false) {
   });
 }
 
-cargarDatos();
+if(user_id!==""&&user_id!==null) {
+  cargarDatos();
+}
+
+const handleKeyDown = (event: { key: string; }) => {
+  if (event.key === 'Enter')
+    fn.ejecutarClick("#btnBuscar");
+};
 
 return (
   <Box>
@@ -68,8 +76,16 @@ return (
             sx={{ ml: 1, flex: 1 }}
             placeholder="Buscar"
             inputProps={{ "aria-label": "search google maps" }}
+            onKeyDown={handleKeyDown}
           />
-          <IconButton type="button" sx={{ p: "10px" }} aria-label="search" onClick={() => { cargarDatos (false, true); }}>
+          <IconButton
+            type="button"
+            sx={{ p: "10px" }}
+            aria-label="search"
+            onClick={() => {
+              cargarDatos(false, true);
+            }}
+          >
             <SearchIcon />
           </IconButton>
         </Paper>
@@ -81,14 +97,20 @@ return (
         inputsIngresoEgreso={false}
         txtConcept={false}
         fechaPago={false}
-      />      
+      />
     </Box>
 
-    <div>
-        <img className={cargandoVisible? "Cargando Mt mostrarI-b Sf" : "Cargando Mt Sf"}  src="img/loading.gif" alt="" />
-    </div>
+    <Box
+        className={cargandoVisible ? "u-textCenter" : "u-textCenter u-ocultar"}
+      >
+        <CircularProgress />
+      </Box>
 
-    <div id="listDatos" style={{ paddingBottom: "50px" }}></div>
+      <div 
+        id="listDatos" 
+        style={{ paddingBottom: "50px" }}
+      >  
+      </div>
   </Box>
 );
 };
