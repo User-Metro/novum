@@ -16,30 +16,20 @@ import fng from "../../molecules/ingresos/funciones";
 let data: any[];
 const user_id = localStorage.getItem("user_id");
 
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
 export const ModalBank = ({
   namePerson,
   fechaPago,
   txtConcept,
   txtCantidad,
   inputsIngresoEgreso,
+  text,
 }: {
   namePerson: boolean;
   fechaPago: boolean;
   txtConcept: boolean;
   txtCantidad: boolean;
   inputsIngresoEgreso: boolean;
+  text: string;
 }) => {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -90,31 +80,39 @@ export const ModalBank = ({
   };
 
   const cargaDatosEdicion = () => {
-    setTimeout(() => {
+      setTimeout(()=>{
       if (fn.obtenerValor("#hdId")) {
         const id_cb = fn.obtenerValor("#hdId");
         const cuenta = fn.obtenerValorHtml("#spName" + id_cb);
         const cantidad = fn.obtenerValorHtml("#spCantidadO" + id_cb);
         const id_tipo = fn.obtenerValorHtml("#spTipoO" + id_cb);
+        setInitialValues({
+          hdId: id_cb,
+          txtNombre: cuenta,
+          stTipo: id_tipo,
+          txtCantidadActual: cantidad,
+          txtConcepto: "",
+          stCategoria: "",
+          txtMonto: "",
+          txtFechaTentativaCobro: "",
+        });
       }
-      setTimeout(() => {
+      setTimeout(()=>{
         setcargandoModal(false);
-      }, 300);
-    }, 800);
+      },300);
+    },800);
   };
-
-  /*##############################*/
 
   async function cargarDatosCajaBanco(
     ejecutarSetCargando = true,
     buscar = false
   ) {
-    let scriptURL = "https://admin.bioesensi-crm.com/listCajasBancos";
+    let scriptURL = localStorage.getItem("site") + "/listCajasBancos";
     let dataUrl = { user_id };
     let busqueda = "";
 
     if (buscar) {
-      scriptURL = "https://admin.bioesensi-crm.com/listCajasBancosB";
+      let scriptURL = localStorage.getItem("site") + "/listCajasBancos";
       busqueda = fn.obtenerValor("#txtSearch");
       dataUrl = { user_id /*busqueda*/ };
     }
@@ -137,7 +135,13 @@ export const ModalBank = ({
       });
   }
 
-  cargarDatosCajaBanco();
+  if (user_id !== "" && user_id !== null) {
+    cargarDatosCajaBanco();
+  }
+
+
+
+  /*##############################*/
 
   /*const onChange: DatePickerProps["onChange"] = (date, dateString) => {
   setInitialValues({
@@ -163,7 +167,7 @@ export const ModalBank = ({
           }}
           onClick={showModal}
         >
-          Crear nueva cuenta
+          {text}
         </Button>
       </Box>
 

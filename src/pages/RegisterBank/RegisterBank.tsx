@@ -97,6 +97,7 @@ return (
         inputsIngresoEgreso={false}
         txtConcept={false}
         fechaPago={false}
+        text={'Crear nueva cuenta'}
       />
     </Box>
 

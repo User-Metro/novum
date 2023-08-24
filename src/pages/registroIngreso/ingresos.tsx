@@ -10,6 +10,7 @@ import AddIcon from "@mui/icons-material/Add";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import { TableCustom } from "../../components/molecules/ingresos/tableCustom";
+import { ModalBank } from '../../components/organims/modal-bank'
 //import { IngresoResponsive } from './IngresoResponsive.tsx';
 
 import { useState } from "react";
@@ -212,19 +213,14 @@ export const Ingresos = () => {
           </Paper>
         </Box>
 
-        <Box className={Styles.itemButton}>
-          <Button
-            variant="contained"
-            color="success"
-            startIcon={<AddIcon />}
-            classes={{
-              root: Styles.btnCreateAccount,
-            }}
-            //onClick={showModal}
-          >
-            Ingreso futuro
-          </Button>
-        </Box>
+        <ModalBank
+          namePerson={true}
+          txtCantidad={false}
+          inputsIngresoEgreso={true}
+          txtConcept={true}
+          fechaPago={true}
+          text={'Ingreso futuro'}
+        />
       </Box>
 
       <TableCustom
