@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { ModalBank } from '../../components/organims/modal-bank';
-import fng from '../../components/molecules/banco/funciones';
-import Box from "@mui/material/Box";
-import Styles from "./RegisterBank.module.scss";
-import fn from "../../utility";
-import Paper from "@mui/material/Paper";
-import InputBase from "@mui/material/InputBase";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
-import CircularProgress from '@mui/material/CircularProgress';
+import React, { useState }  from "react";
+import { ModalBank }        from '../../components/organims/modal-bank';
+import fng                  from '../../components/molecules/banco/funciones';
+import Box                  from "@mui/material/Box";
+import Styles               from "./RegisterBank.module.scss";
+import fn                   from "../../utility";
+import Paper                from "@mui/material/Paper";
+import InputBase            from "@mui/material/InputBase";
+import IconButton           from "@mui/material/IconButton";
+import SearchIcon           from "@mui/icons-material/Search";
+import CircularProgress     from '@mui/material/CircularProgress';
 
 const user_id = localStorage.getItem('user_id');
 
@@ -17,18 +17,19 @@ const [cargandoVisible, setCargandoVisible] = useState(true);
 
 async function cargarDatos (ejecutarSetCargando=true,buscar=false) {
   let scriptURL = localStorage.getItem('site')+"/listCajasBancos";
-  let dataUrl = {user_id};
-  let busqueda = "";
+  let dataUrl;
+      dataUrl   = {user_id};
+  let busqueda  = "";
 
   if(buscar) {
     scriptURL = localStorage.getItem('site')+"/listCajasBancosB";
-    busqueda = fn.obtenerValor('#txtSearch');
-    dataUrl = {user_id, /*busqueda*/};
+    busqueda  = fn.obtenerValor('#txtSearch');
+    dataUrl   = {user_id, busqueda};
   }
 
   await fetch(scriptURL, {
     method: 'POST',
-    body: JSON.stringify(dataUrl),
+    body:   JSON.stringify(dataUrl),
     headers:{
       'Content-Type': 'application/json'
     }
@@ -56,32 +57,32 @@ const handleKeyDown = (event: { key: string; }) => {
 
 return (
   <Box>
-    <Box className={Styles.nav}>
-      <Box className={Styles.counter}>
+    <Box    className = {Styles.nav}>
+      <Box  className = {Styles.counter}>
         <p>Cuentas</p>
-        <div id="NumCuenta" className={Styles.chip}></div>
+        <div id = "NumCuenta" className = {Styles.chip}></div>
       </Box>
 
-      <Box className={Styles.itemSearch}>
+      <Box  className = {Styles.itemSearch}>
         <Paper
-          component="form"
+          component = "form"
           sx={{
-            display: "flex",
+            display:    "flex",
             alignItems: "center",
           }}
         >
           <InputBase
-            id="txtSearch"
-            name="txtSearch"
+            id          = "txtSearch"
+            name        = "txtSearch"
             sx={{ ml: 1, flex: 1 }}
-            placeholder="Buscar"
-            inputProps={{ "aria-label": "search google maps" }}
-            onKeyDown={handleKeyDown}
+            placeholder = "Buscar"
+            inputProps  = {{ "aria-label": "search google maps" }}
+            onKeyDown   = {handleKeyDown}
           />
           <IconButton
-            type="button"
-            sx={{ p: "10px" }}
-            aria-label="search"
+            type        = "button"
+            sx          = {{ p: "10px" }}
+            aria-label  = "search"
             onClick={() => {
               cargarDatos(false, true);
             }}
@@ -92,12 +93,13 @@ return (
       </Box>
 
       <ModalBank
-        namePerson={false}
-        txtCantidad={true}
-        inputsIngresoEgreso={false}
-        txtConcept={false}
-        fechaPago={false}
-        text={'Crear nueva cuenta'}
+        namePerson          = {false}
+        txtCantidad         = {true}
+        inputsIngresoEgreso = {false}
+        txtConcept          = {false}
+        fechaPago           = {false}
+        text                = {'Crear nueva cuenta'}
+        cargarDatos         = {cargarDatos}
       />
     </Box>
 
@@ -108,8 +110,8 @@ return (
       </Box>
 
       <div 
-        id="listDatos" 
-        style={{ paddingBottom: "50px" }}
+        id    = "listDatos" 
+        style = {{ paddingBottom: "50px" }}
       >  
       </div>
   </Box>
