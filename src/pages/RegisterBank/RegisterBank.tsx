@@ -100,6 +100,9 @@ return (
         fechaPago           = {false}
         text                = {'Crear nueva cuenta'}
         cargarDatos         = {cargarDatos}
+        edit                = {false}
+        arrayData           = {null}
+        rowId               = {null}
       />
     </Box>
 

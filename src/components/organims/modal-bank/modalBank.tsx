@@ -3,6 +3,7 @@ import Box                                    from "@mui/material/Box";
 import Button                                 from "@mui/material/Button";
 import AddIcon                                from "@mui/icons-material/Add";
 import CircularProgress                       from "@mui/material/CircularProgress";
+import EditIcon                               from "@mui/icons-material/Edit";
 import { Formik, Form, FieldInputProps }      from "formik";
 import { Modal, message, Input, DatePicker }  from "antd";
 import { useState }                           from "react";
@@ -23,6 +24,9 @@ export const ModalBank = ({
   inputsIngresoEgreso,
   text,
   cargarDatos,
+  edit,
+  arrayData,
+  rowId,
 }: {
   namePerson:           boolean;
   fechaPago:            boolean;
@@ -31,13 +35,18 @@ export const ModalBank = ({
   inputsIngresoEgreso:  boolean;
   text:                 string;
   cargarDatos:          Function;
+  edit:                 boolean;
+  arrayData:            any;
+  rowId:                any
 }) => {
   const [open,            setOpen]              = useState(false);
   const [confirmLoading,  setConfirmLoading]    = useState(false);
   const [messageApi,      contextHolder]        = message.useMessage();
   const [listaDatos,      setListaDatos]        = useState([]);
- 
   const [cargandoModal,   setcargandoModal]     = useState(false);
+  const [cobrado,         setCobrado]           = useState(false);
+  const [modal2Open,      setModal2Open]        = useState(false);
+  const [idIngresoStatus, setIdIngresoStatus]   = useState("0");
   const [value,           setValue]             = useState<any>();
 
   const [initialValuesCaja, setInitialValuesCaja] = useState({
@@ -65,7 +74,7 @@ export const ModalBank = ({
     txtConcepto:        "",
     stCategoria:        "",
     txtMonto:           "",
-    txtFechaTentativaCobro: ''
+    txtFechaTentativaCobro: Date()
   });
 
   const showModal = () => {
@@ -115,20 +124,61 @@ export const ModalBank = ({
 
   /*##############################*/
 
+  const showModalC = (id: any, tipo: number) => {
+    tipo === 1 ? setCobrado(false) : setCobrado(true);
+    setModal2Open(true);
+  
+    setTimeout(() => {
+      setIdIngresoStatus(id);
+    }, 500);
+  };
+
+  const editar = (id: any) => {
+    showModal();
+    //console.log(arrayData);
+    const pos = fn.buscarPosicionArreglo(arrayData, id);
+
+    setTimeout(() => {
+      setInitialValue({
+        hdId:                   id,
+        txtNombre:              arrayData[pos]["name"],
+        txtConcepto:            arrayData[pos]["concept"],
+        stTipo:                 arrayData[pos]["id_payment_method"],
+        txtCantidadActual:      "",
+        stCategoria:            arrayData[pos]["id_category"],
+        txtMonto:               arrayData[pos]["amount"],
+        txtFechaTentativaCobro: arrayData[pos]["date_to_pay_o"],
+      });
+    }, 100);
+  };
+
+
   return (
     <Box>
       <Box className={Styles.itemButton}>
-        <Button
-          variant   = "contained"
-          color     = "success"
-          startIcon = {<AddIcon />}
-          classes={{
-            root: Styles.btnCreateAccount,
-          }}
-          onClick={showModal}
-        >
-          {text}
-        </Button>
+        {
+          edit
+          ?(<EditIcon
+              className="u-efecto slideRight"
+              onClick={() => {
+                editar(rowId);
+              }}
+            />
+          )
+          :(
+            <Button
+              variant   = "contained"
+              color     = "success"
+              startIcon = {<AddIcon />}
+              classes={{
+                root: Styles.btnCreateAccount,
+              }}
+              onClick={showModal}
+            >
+              {text}
+            </Button>
+          )
+        }
       </Box>
 
       <Modal
@@ -160,17 +210,17 @@ export const ModalBank = ({
                         : "* Nombre de la cuenta"
                     ),
                   stTipo: Yup.number()
-                    .min(1, "Efectivo o banco")
-                    .required("* Efectivo o banco"),
+                    .min      (1, "Efectivo o banco")
+                    .required ("* Efectivo o banco"),
                   txtConcepto: Yup.string()
-                    .min(3, "El concepto es demasiado corto")
-                    .required("* Concepto"),
+                    .min      (3, "El concepto es demasiado corto")
+                    .required ("* Concepto"),
                   stCategoria: Yup.number()
-                    .min(1, "Categoria")
-                    .required("* Categoria"),
+                    .min      (1, "Categoria")
+                    .required ("* Categoria"),
                   txtMonto: Yup.number()
-                    .min(1, "Al menos un digito")
-                    .required("* Monto"),
+                    .min      (1, "Al menos un digito")
+                    .required ("* Monto"),
                   txtFechaTentativaCobro: Yup.date().required(
                     fechaPago
                       ? "* Fecha tentativa de pago"
@@ -191,11 +241,11 @@ export const ModalBank = ({
                         : "* Nombre de la cuenta"
                     ),
                   stTipo: Yup.number()
-                    .min(1, "Efectivo o banco")
-                    .required("* Efectivo o banco"),
+                    .min      (1, "Efectivo o banco")
+                    .required ("* Efectivo o banco"),
                   txtCantidadActual: Yup.number()
-                    .min(1, "Al menos un digito")
-                    .required("* Cantidad actual"),
+                    .min      (1, "Al menos un digito")
+                    .required ("* Cantidad actual"),
                 })
           }
           onSubmit={

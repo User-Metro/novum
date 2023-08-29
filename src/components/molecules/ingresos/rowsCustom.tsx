@@ -1,18 +1,16 @@
-import * as React from "react";
-import Styles from "../../../pages/registroIngreso/ingresos.module.scss";
-import fn from "../../../utility";
-import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
-import Chip from "@mui/material/Chip";
-import MoneyOffIcon from "@mui/icons-material/MoneyOff";
-import PriceCheckIcon from "@mui/icons-material/PriceCheck";
-import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined";
-import RequestQuoteOutlinedIcon from "@mui/icons-material/RequestQuoteOutlined";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { message, Popconfirm } from "antd";
-import dayjs, { Dayjs } from "dayjs";
-import { Key } from "readline";
+import * as React                 from "react";
+import Styles                     from "../../../pages/registroIngreso/ingresos.module.scss";
+import fn                         from "../../../utility";
+import TableCell                  from "@mui/material/TableCell";
+import TableRow                   from "@mui/material/TableRow";
+import Chip                       from "@mui/material/Chip";
+import MoneyOffIcon               from "@mui/icons-material/MoneyOff";
+import PriceCheckIcon             from "@mui/icons-material/PriceCheck";
+import PaymentOutlinedIcon        from "@mui/icons-material/PaymentOutlined";
+import RequestQuoteOutlinedIcon   from "@mui/icons-material/RequestQuoteOutlined";
+import DeleteIcon                 from "@mui/icons-material/Delete";
+import { message, Popconfirm }    from "antd";
+import { ModalBank }              from '../../organims/modal-bank';
 
 const cancel = () => {
   message.error("Click on No");
@@ -28,50 +26,29 @@ export const RowsCustom = ({
   pullData,
   page,
   rowsPerPage,
-  showModal,
   setInitialValues,
-  setModal2Open,
 }: {
   pullData: any;
   page: any;
   rowsPerPage: any;
-  showModal: Function;
   setInitialValues: Function;
-  setModal2Open: Function;
 }) => {
   const cambiarStatus = (id: number) => {
     alert(id);
   };
 
-  const editar = (id: number) => {
-    showModal();
-    console.log(pullData);
-    const pos = fn.buscarPosicionArreglo(pullData, id);
-
-    setTimeout(() => {
-      setInitialValues({
-        hdId: id,
-        txtNombre: pullData[pos]["name"],
-        txtConcepto: pullData[pos]["concept"],
-        stTipo: pullData[pos]["id_payment_method"],
-        stCategoria: pullData[pos]["id_category"],
-        txtMonto: pullData[pos]["amount"],
-        txtFechaTentativaCobro: dayjs(pullData[pos]["date_to_pay_o"]),
-      });
-    }, 100);
-    /*const cuenta = fn.obtenerValorHtml("#spName"+id_cb);
-    const cantidad = fn.obtenerValorHtml("#spCantidadO"+id_cb);
-    const id_tipo = fn.obtenerValorHtml("#spTipoO"+id_cb);*/
-  };
+  const test =()=>{
+    console.log('nada')
+  }
 
   const eliminar = (id: string) => {
-    const scriptURL = "http://localhost:3001/eliminarIngresoFuturo"; // deberia es
+    const scriptURL           = localStorage.getItem("site") + "/eliminarIngresoFuturo"; // deberia es
     const ingresos_futuros_id = id;
-    const dataU = { ingresos_futuros_id };
+    const dataU               = { ingresos_futuros_id };
 
     fetch(scriptURL, {
       method: "POST",
-      body: JSON.stringify(dataU),
+      body:   JSON.stringify(dataU),
       headers: {
         "Content-Type": "application/json",
       },
@@ -173,7 +150,7 @@ export const RowsCustom = ({
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               //idTr={data.id}
             >
-              <TableCell scope="row">{data.date_created}</TableCell>
+              <TableCell scope="row"> {data.date_created}  </TableCell>
               <TableCell align="left">
                 {data.payment_method === "Efectivo" ? (
                   <div className={Styles.typeAmount1}>
@@ -187,54 +164,62 @@ export const RowsCustom = ({
                   </div>
                 )}
               </TableCell>
-              <TableCell align="left">{data.category}</TableCell>
-              <TableCell align="left">{data.name}</TableCell>
-              <TableCell align="left">{data.concept}</TableCell>
-              <TableCell align="left">${formatNumber(data.amount)}</TableCell>
-              <TableCell align="left">{data.date_to_pay}</TableCell>
+              <TableCell align="left">  {data.category}             </TableCell>
+              <TableCell align="left">  {data.name}                 </TableCell>
+              <TableCell align="left">  {data.concept}              </TableCell>
+              <TableCell align="left">  ${formatNumber(data.amount)}</TableCell>
+              <TableCell align="left">  {data.date_to_pay}          </TableCell>
               <TableCell align="left">
                 {data.state == "Cobrado" ? (
                   <Chip
-                    icon={<PriceCheckIcon />}
-                    size="small"
-                    label="Cobrado"
-                    className={Styles.chipTable}
+                    icon        = {<PriceCheckIcon />}
+                    size        = "small"
+                    label       = "Cobrado"
+                    className   = {Styles.chipTable}
                   />
                 ) : (
                   <Chip
-                    icon={<MoneyOffIcon />}
-                    label="No cobrado"
-                    size="small"
-                    className={Styles.chipTableNo}
-                    onClick={() => {
-                      setModal2Open(true);
+                    icon      = {<MoneyOffIcon />}
+                    label     = "No cobrado"
+                    size      = "small"
+                    className = {Styles.chipTableNo}
+                    onClick   = {() => {
+                      //showModalC(true);
                     }}
                   />
                 )}
               </TableCell>
-              <TableCell align="left">{data.date_cashed}</TableCell>
+              <TableCell align="left">  {data.date_cashed}  </TableCell>
               <TableCell className="Iconos-Tabla" align="right">
-                <EditIcon
-                  className="u-efecto slideRight"
-                  onClick={() => {
-                    editar(data.id);
-                  }}
-                />
-                <Popconfirm
-                  title="¿Desea eliminar este registro?"
-                  description=""
-                  onConfirm={() => {
-                    eliminar(data.id);
-                  }}
-                  onCancel={cancel}
-                  okText="Si"
-                  cancelText="No"
-                >
-                  <DeleteIcon
-                    className="icoBorrar u-efecto slideRight"
-                    onClick={() => {}}
+                <div className={Styles.btnSection}>
+                  <ModalBank
+                    namePerson          = {true}
+                    txtCantidad         = {false}
+                    inputsIngresoEgreso = {true}
+                    txtConcept          = {true}
+                    fechaPago           = {true}
+                    text                = {''}
+                    cargarDatos         = {test}
+                    edit                = {true}
+                    arrayData           = {pullData}
+                    rowId               = {data.id}
                   />
-                </Popconfirm>
+                  <Popconfirm
+                    title       = "¿Desea eliminar este registro?"
+                    description = ""
+                    onConfirm   = {() => {
+                      eliminar(data.id);
+                    }}
+                    onCancel    = {cancel}
+                    okText      = "Si"
+                    cancelText  = "No"
+                  >
+                    <DeleteIcon
+                      className = "icoBorrar u-efecto slideRight"
+                      onClick   = {() => {}}
+                    />
+                  </Popconfirm>
+                </div>
               </TableCell>
             </TableRow>
           )
@@ -242,9 +227,3 @@ export const RowsCustom = ({
     </>
   );
 };
-
-/*
-arrays.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
-  page
-  rowsPerPage
-*/

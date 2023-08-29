@@ -199,6 +199,11 @@
   margin-top: -7px;
 }
 
+.btnSection{
+  display: flex;
+  justify-content: flex-end;
+}
+
 @media all and (min-width: 718px){
  .itemSearch{
     width: 400px;
