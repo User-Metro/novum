@@ -33,13 +33,10 @@ export const RowsCustom = ({
   rowsPerPage: any;
   setInitialValues: Function;
 }) => {
+
   const cambiarStatus = (id: number) => {
     alert(id);
   };
-
-  const test =()=>{
-    console.log('nada')
-  }
 
   const eliminar = (id: string) => {
     const scriptURL           = localStorage.getItem("site") + "/eliminarIngresoFuturo"; // deberia es
@@ -56,7 +53,7 @@ export const RowsCustom = ({
       .then((resp) => resp.json())
       .then(function (info) {
         fn.agregarClase("tr[idTr='" + id + "']", "u-ocultar");
-        fn.ejecutarClick("#btnBuscar");
+        //fn.ejecutarClick("#btnBuscar");
       })
       .catch((error) => {
         alert(error.message);
@@ -199,7 +196,7 @@ export const RowsCustom = ({
                     txtConcept          = {true}
                     fechaPago           = {true}
                     text                = {''}
-                    cargarDatos         = {test}
+                    cargarDatos         = {() => {}}
                     edit                = {true}
                     arrayData           = {pullData}
                     rowId               = {data.id}

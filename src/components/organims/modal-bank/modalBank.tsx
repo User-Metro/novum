@@ -251,11 +251,10 @@ export const ModalBank = ({
           onSubmit={
             inputsIngresoEgreso
               ? (values, actions) => {
-                  let scriptURL = localStorage.getItem("site") + "/altaIngresoFuturo";
-
-                  if (values.hdId){
-                    scriptURL   = localStorage.getItem("site") + "/editarIngresoFuturo";
-                  }
+                  let scriptURL = 
+                    edit 
+                    ? localStorage.getItem("site") + "/editarIngresoFuturo"
+                    : localStorage.getItem("site") + "/altaIngresoFuturo"
 
                   const txtNombre               = values.txtNombre;
                   const txtConcepto             = values.txtConcepto;
@@ -300,6 +299,12 @@ export const ModalBank = ({
                         setConfirmLoading
                       );
                       setValue('');
+                      
+                      setTimeout(() => {
+                        setOpen(false);
+                        setConfirmLoading(false);
+                        cargarDatos(false);
+                      }, 1200);
                     })
                     .catch((error) => {
                       console.log(error.message);
