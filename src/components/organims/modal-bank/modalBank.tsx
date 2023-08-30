@@ -12,7 +12,7 @@ import dayjs                                  from "dayjs";
 import * as Yup                               from "yup";
 import fn                                     from "../../../utility";
 import fnc                                    from "../../molecules/banco/funciones";
-import fng                                    from "../../molecules/ingresos/funciones";
+import fng                                    from "../../atoms/ingresos/funciones";
 
 const user_id = localStorage.getItem("user_id");
 
@@ -27,6 +27,7 @@ export const ModalBank = ({
   edit,
   arrayData,
   rowId,
+  saveDataEgreso,
 }: {
   namePerson:           boolean;
   fechaPago:            boolean;
@@ -37,7 +38,8 @@ export const ModalBank = ({
   cargarDatos:          Function;
   edit:                 boolean;
   arrayData:            any;
-  rowId:                any
+  rowId:                any;
+  saveDataEgreso:       boolean;
 }) => {
   const [open,            setOpen]              = useState(false);
   const [confirmLoading,  setConfirmLoading]    = useState(false);
@@ -63,7 +65,7 @@ export const ModalBank = ({
     stTipo:       "",
     stCategoria:  "",
     txtMonto:     "",
-    txtFechaTentativaCobro: dayjs()
+    txtFechaTentativaCobro: ''
   });
 
   const [initialValue, setInitialValue] = useState({
@@ -74,7 +76,7 @@ export const ModalBank = ({
     txtConcepto:        "",
     stCategoria:        "",
     txtMonto:           "",
-    txtFechaTentativaCobro: Date()
+    txtFechaTentativaCobro: ""
   });
 
   const showModal = () => {
@@ -135,7 +137,7 @@ export const ModalBank = ({
 
   const editar = (id: any) => {
     showModal();
-    //console.log(arrayData);
+    console.log(arrayData);
     const pos = fn.buscarPosicionArreglo(arrayData, id);
 
     setTimeout(() => {
@@ -253,17 +255,24 @@ export const ModalBank = ({
               ? (values, actions) => {
                   let scriptURL = 
                     edit 
-                    ? localStorage.getItem("site") + "/editarIngresoFuturo"
-                    : localStorage.getItem("site") + "/altaIngresoFuturo"
+                    ? saveDataEgreso
+                      ? localStorage.getItem('site') + "/editarEgresoFuturo"
+                      : localStorage.getItem("site") + "/editarIngresoFuturo"
+                    
+                    : saveDataEgreso
+                      ? localStorage.getItem('site') + "/altaEgresoFuturo"
+                      : localStorage.getItem("site") + "/altaIngresoFuturo"
 
                   const txtNombre               = values.txtNombre;
                   const txtConcepto             = values.txtConcepto;
                   const stTipo                  = values.stTipo;
                   const stCategoria             = values.stCategoria;
                   const txtMonto                = values.txtMonto;
-                  const txtFechaTentativaCobro  = values.txtFechaTentativaCobro+'T00:00:00.272Z';
+                  const txtFechaTentativaCobro  = new Date(values.txtFechaTentativaCobro).toISOString();
+                  const txtFechaTentativaPago   = new Date(values.txtFechaTentativaCobro).toISOString();
                   const ingresos_futuros_id     = values.hdId;
-
+                  const egresos_futuros_id      = values.hdId;
+                  
                   const dataC = {
                     txtNombre,
                     txtConcepto,
@@ -275,10 +284,21 @@ export const ModalBank = ({
                     ingresos_futuros_id,
                   };
 
+                  const dataP = {
+                    txtNombre,
+                    txtConcepto,
+                    stTipo,
+                    stCategoria,
+                    txtMonto,
+                    user_id,
+                    txtFechaTentativaPago,
+                    egresos_futuros_id,
+                  };
+
                   setConfirmLoading(true);
                   fetch(scriptURL, {
                     method: "POST",
-                    body:   JSON.stringify(dataC),
+                    body:   JSON.stringify(saveDataEgreso ? dataP : dataC),
                     headers: {
                       "Content-Type": "application/json",
                     },

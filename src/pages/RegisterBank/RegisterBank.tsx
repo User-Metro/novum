@@ -103,6 +103,7 @@ return (
         edit                = {false}
         arrayData           = {null}
         rowId               = {null}
+        saveDataEgreso      = {false}
       />
     </Box>
 

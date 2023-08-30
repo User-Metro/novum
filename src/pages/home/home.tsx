@@ -1,24 +1,22 @@
-import React, { useState } from "react";
+import React, { useState }                      from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import type { MenuProps } from "antd";
-import { Avatar, Space } from "antd";
-import { Layout, Button, Menu, theme } from "antd";
+import type { MenuProps }                       from "antd";
+import { Avatar, Space }                        from "antd";
+import { Layout, Button, Menu, theme }          from "antd";
 
-import style from "./home.module.scss";
-import { Resumen } from '../../components/molecules/resumen';
-import { RegistrarCajaOBanco } from '../../hooks/RegistrarCajaOBanco';
-import { RegistrarIngresosFuturos } from '../../hooks/RegistrarIngresosFuturos'
+import style                        from "./home.module.scss";
+import { Resumen }                  from "../../components/molecules/resumen";
+import { RegistrarCajaOBanco }      from "../../hooks/RegistrarCajaOBanco";
+import { RegistrarIngresosFuturos } from "../../hooks/RegistrarIngresosFuturos";
+import { RegistrarEgresosFuturos }  from "../../hooks/RegistrarEgresos";
 
-//import { RegistrarEgresosFuturos } from "./RegisterDischargeCash/RegistrarEgresosFuturos.tsx";
-
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
+import AppBar       from "@mui/material/AppBar";
+import Box          from "@mui/material/Box";
+import Divider      from "@mui/material/Divider";
+import Drawer       from "@mui/material/Drawer";
+import IconButton   from "@mui/material/IconButton";
+import MenuIcon     from "@mui/icons-material/Menu";
+import Toolbar      from "@mui/material/Toolbar";
 
 const drawerWidth = 250;
 
@@ -27,11 +25,11 @@ const { Header, Content, Sider } = Layout;
 type MenuItem = Required<MenuProps>["items"][number];
 
 function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-  type?: "group"
+  label:      React.ReactNode,
+  key:        React.Key,
+  icon?:      React.ReactNode,
+  children?:  MenuItem[],
+  type?:      "group"
 ): MenuItem {
   return {
     key,
@@ -52,18 +50,21 @@ const items: MenuItem[] = [
   getItem(
     "Registrar ingresos futuros",
     "3",
-    <span className="icon-icoIngreso"></span>
+    <span className="icon-icoIngreso">    </span>
   ),
   getItem(
     "Registrar egresos futuros",
     "4",
-    <span className="icon-icoEgereso"></span>
+    <span className="icon-icoEgereso">    </span>
   ),
 ];
 
 export const Home = (props: any) => {
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { window }                        = props;
+  const [mobileOpen,    setMobileOpen]    = React.useState(false);
+  const [egresoActive,  setEgresoActive]  = React.useState(true);
+  const [collapsed,     setCollapsed]     = useState(false);
+  const [page,          setPage]          = useState("1");
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -71,9 +72,6 @@ export const Home = (props: any) => {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
-
-  const [collapsed, setCollapsed] = useState(false);
-  const [page, setPage] = useState("1");
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
@@ -92,17 +90,21 @@ export const Home = (props: any) => {
   };
 
   const Cambio = (props: any) => {
-   
     if (props.pos === "1") {
-      return <Resumen cambioRegistroBan={cambioRegistroBan}/>;
+      return <Resumen                   cambioRegistroBan={cambioRegistroBan} />;
     } else if (props.pos === "2") {
-      return <RegistrarCajaOBanco cambioRegistroBan={undefined}/>;
+      return <RegistrarCajaOBanco       cambioRegistroBan={undefined} />;
     } else if (props.pos === "3") {
-      return <RegistrarIngresosFuturos cambioRegistroBan={undefined}/>;
+      return <RegistrarIngresosFuturos  cambioRegistroBan={undefined} />;
     } else if (props.pos === "4") {
-      return <div>RegistrarEgresosFuturos</div>;
+      return (
+        <RegistrarEgresosFuturos
+          egresoActive    = {egresoActive}
+          setEgresoActive = {setEgresoActive}
+        />
+      );
     }
-    
+
     // Agrega un caso por defecto para manejar otros valores de props.pos
     return null; // O cualquier otro elemento JSX que desees renderizar por defecto
   };
@@ -119,12 +121,12 @@ export const Home = (props: any) => {
       </span>
       <Divider />
       <Menu
-        className={style.prueba}
-        defaultSelectedKeys={[page]}
-        selectedKeys={[page]}
-        mode="inline"
-        onClick={onClick}
-        items={items}
+        className           = {style.prueba}
+        defaultSelectedKeys = {[page]}
+        selectedKeys        = {[page]}
+        mode                = "inline"
+        onClick             = {onClick}
+        items               = {items}
       />
     </Box>
   );
@@ -135,9 +137,9 @@ export const Home = (props: any) => {
         <Toolbar>
           <Box>
             <IconButton
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
+              aria-label  = "open drawer"
+              edge        = "start"
+              onClick     = {handleDrawerToggle}
               sx={{ mr: 2, display: { sm: "block" } }}
             >
               <MenuIcon />
@@ -160,18 +162,18 @@ export const Home = (props: any) => {
       </AppBar>
       <Box component="nav">
         <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
+          container   = {container}
+          variant     = "temporary"
+          open        = {mobileOpen}
+          onClose     = {handleDrawerToggle}
+          ModalProps  = {{
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
             display: { xs: "block", sm: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: drawerWidth,
+              width:      drawerWidth,
             },
           }}
         >
@@ -180,15 +182,15 @@ export const Home = (props: any) => {
       </Box>
 
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
-          <Space size={16} wrap>
+        <Header     style={{ padding: 0, background: colorBgContainer }}>
+          <Space    size={16} wrap>
             <Avatar size={40} className={`${style.HomeUser} u-floatRight`}>
               AP
             </Avatar>
           </Space>
         </Header>
-        <Content style={{ margin: "0 16px" }} className="u-textCenter">
-          <Cambio pos={page} />
+        <Content    style={{ margin: "0 16px" }} className="u-textCenter">
+          <Cambio   pos={page} />
         </Content>
       </Layout>
     </Layout>

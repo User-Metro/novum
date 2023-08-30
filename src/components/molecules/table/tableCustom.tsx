@@ -14,10 +14,12 @@ import { RowsCustom }       from "./rowsCustom";
 export const TableCustom = ({
   arrays,
   setInitialValues,
+  ingreso,
 
 }: {
   arrays:           any;
   setInitialValues: Function,
+  ingreso:          boolean;
 }) => {
   const [page,        setPage]        = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -66,6 +68,7 @@ export const TableCustom = ({
                 page              = {page}
                 rowsPerPage       = {rowsPerPage}
                 setInitialValues  = {setInitialValues}
+                status            = {ingreso}
               />
             </TableBody>
           </Table>

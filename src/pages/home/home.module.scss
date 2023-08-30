@@ -29,7 +29,7 @@
 
 .HomeBienvenida {
   width: 355px;
-  color: $gray-color;
+  color: #8C8C8C;
   font-size: 18.3px;
   line-height: 22px;
   font-weight: 400;
@@ -37,7 +37,7 @@
 }
 
 .HomeTitle {
-  color: $black-color;
+  color: #000000;
   font-size: 30px;
   font-weight: 500;
   line-height: 30px;
@@ -51,43 +51,74 @@
 }
 
 .HomeIcoBienvenida:before {
-  color: $gray-color;
+  color: #8C8C8C;
   font-size: 55.798px;
 }
 
+.mobile{
+  background: white !important;
+  box-shadow: none !important;
+}
+
+.mobile  div{
+  display: flex;
+  justify-content: space-between;
+}
+
+.ant-menu-light .ant-menu-item-selected:active{
+  background: black !important;
+  color: rebeccapurple;
+}
+
+.icoMenu {
+  height: 40px !important;
+  margin-top: 8px !important;
+}
+
+.btnHome{
+  background-color: $main-color;
+  font-size: 11px;
+  font-weight: 600;
+  margin-left: 0;
+  margin-top: 22px;
+  padding: 0 14px;
+  top: 0;
+}
+
+/*
 .ModalForm input {
+  font: 14px 'Readex Pro', sans-serif;
   margin-bottom: 6px;
+  box-sizing: border-box;
+  padding: 4px 11px;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  transition: all 0.2s; 
 }
 
-.ModalForm input::-webkit-input-placeholder, .ant-picker-input input::-webkit-input-placeholder
-{
- 	color: $black-color !important;
-}
-
-.ModalForm input::-o-input-placeholder, .ant-picker-input input::-o-input-placeholder
-{
- 	color: $black-color !important;
-}
-
-.ModalForm input::-ms-input-placeholder, .ant-picker-input input::-ms-input-placeholder
-{
- 	color: $black-color !important;
-}
-
-.ModalForm input:-moz-input-placeholder, .ant-picker-input input:-moz-input-placeholder
-{
- 	color: $black-color !important;
-}
-
-.ModalForm input::-moz-input-placeholder, .ant-picker-input input::-moz-input-placeholder
-{
- 	color: $black-color !important;
+.ModalFormText {
+  width: 100%;
+  height: 26px;
+  font: 14px 'Readex Pro', sans-serif;
+  box-sizing: border-box;
+  padding: 4px 11px;
+  color: rgba(0, 0, 0, 0.88);
+  line-height: 1.5714285714285714;
+  background: #ffffff;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  transition: all 0.2s;
 }
 
 .ModalSelect {
   width: 232px;
   height: 32px;
-  color: $black-color;
+  color: #000000;
   padding-left: 8px;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
@@ -97,7 +128,8 @@
 
 .ModalCantidad {
   width: 232px;
-  color: $black-color;
+  height: 33px;
+  color: #000000;
 }
 
 .ModalCantidadMr {
@@ -108,18 +140,4 @@
   height: 10px !important;
   padding-top: 6px !important;
 }
-
-.mobile{
-  background: $default-color !important;
-  box-shadow: none !important;
-}
-
-.mobile  div{
-  display: flex;
-  justify-content: space-between;
-}
-
-.ant-menu-light .ant-menu-item-selected:active{
-  background: $black-color !important;
-}
-
+*/

@@ -1,10 +1,10 @@
-import Styles                   from "./ingresos.module.scss";
+import Styles                   from "./egreso.module.scss";
 import Box                      from "@mui/material/Box";
 import Paper                    from "@mui/material/Paper";
 import CircularProgress         from "@mui/material/CircularProgress";
 import { useState }             from "react";
 import fn                       from "../../utility";
-import fng                      from "../../components/atoms/ingresos/funciones";
+import fng                      from "../../components/atoms/egresos/funciones";
 import { message }              from "antd";
 import dayjs                    from "dayjs";
 import type { DatePickerProps } from "antd";
@@ -28,7 +28,8 @@ let listData: IData[];
 let data:     any;
 const user_id = localStorage.getItem("user_id");
 
-export const Ingresos = () => {
+export const Egresos = () =>{
+
 const [open,            setOpen]              = useState(false);
 const [confirmLoading,  setConfirmLoading]    = useState(false);
 const [confirm2Loading, setConfirm2Loading]   = useState(false);
@@ -52,7 +53,7 @@ const [initialValues, setInitialValues] = useState({
   txtFechaTentativaCobro: ""
 });
 
-async function cargarDatosIngresos(
+async function cargarDatosEgresos(
   buscar?:                    boolean,
   setListaDatos?:             any,
   ejecutarSetInitialValues?:  boolean,
@@ -60,7 +61,7 @@ async function cargarDatosIngresos(
   setOpen?:                   any,
   setConfirmLoading?:         any
 ) {
-  let scriptURL = localStorage.getItem("site") + "/listIngresosFuturos";
+  let scriptURL = localStorage.getItem("site") + "/listEgresosFuturos";
   let dataUrl;
       dataUrl   = { user_id };
   let busqueda  = "";
@@ -75,18 +76,16 @@ async function cargarDatosIngresos(
     metodo_id = fn.obtenerValor("#stTipoB");
     estado_id = fn.obtenerValor("#stEstadoB");
 
-    scriptURL = localStorage.getItem("site") + "/listIngresosFuturosFiltro";
+    scriptURL = localStorage.getItem("site") + "/listEgresosFuturosFiltro";
     dataUrl   = { user_id, metodo_id, estado_id };
   }
 
   if (buscar) {
-    scriptURL = localStorage.getItem("site") + "/listIngresosFuturosB";
+    scriptURL = localStorage.getItem("site") + "/listEgresosFuturosB";
     busqueda  = fn.obtenerValor("#txtSearch");
     dataUrl   = { user_id, busqueda };
   }
 
-  //console.log("Data:");
-  //console.log(dataUrl);
   await fetch(scriptURL, {
     method: "POST",
     body:   JSON.stringify(dataUrl),
@@ -97,6 +96,8 @@ async function cargarDatosIngresos(
     .then((resp) => resp.json())
     .then(function (info) {
       data = fng.obtenerList(info);
+      listData = [];
+      listData = Object.assign(fng.obtenerData(info));
       //console.log(data);
 
       if (buscar) {
@@ -135,20 +136,8 @@ async function cargarDatosIngresos(
 }
 
 if (user_id !== "" && user_id !== null) {
-  cargarDatosIngresos();
+  cargarDatosEgresos();
 }
-
-/*const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-  setInitialValues({
-    hdId:                   fn.obtenerValor("#hdId"),
-    txtNombre:              fn.obtenerValor("#txtNombre"),
-    txtConcepto:            fn.obtenerValor("#txtConcepto"),
-    stTipo:                 fn.obtenerValor("#stTipo"),
-    stCategoria:            fn.obtenerValor("#stCategoria"),
-    txtMonto:               fn.obtenerValor("#txtMonto"),
-    txtFechaTentativaCobro: dayjs(dateString),
-  });
-};*/
 
 let idSI = setInterval(() => {
   if (!data) console.log("Vacio");
@@ -164,10 +153,10 @@ let idSI = setInterval(() => {
 }, 1000);
 
 const buscarPorSelect = () => {
-  cargarDatosIngresos(false,setListaDatos);
+  cargarDatosEgresos(false, setListaDatos);
 }
- 
-return (
+
+return(
   <Box>
     <Box    className = {Styles.nav}>
       <Box  className = {Styles.counter}>
@@ -216,20 +205,20 @@ return (
         txtCantidad         = {false}
         inputsIngresoEgreso = {true}
         txtConcept          = {true}
-        fechaPago           = {true}
-        text                = {'Ingreso futuro'}
-        cargarDatos         = {cargarDatosIngresos}
+        fechaPago           = {false}
+        text                = {'Egreso futuro'}
+        cargarDatos         = {cargarDatosEgresos}
         edit                = {false}
         arrayData           = {null}
         rowId               = {null}
-        saveDataEgreso      = {false}
+        saveDataEgreso      = {true}
       />
     </Box>
 
     <TableCustom
       arrays            = {listaDatos}
       setInitialValues  = {setInitialValues}
-      ingreso           = {true}
+      ingreso           = {false}
     />
 
     <Box
@@ -238,34 +227,6 @@ return (
       <CircularProgress />
     </Box>
   </Box>
-);
-};
+)
 
-{
-/*
-    <Box>
-      {listaDatos.map((data) => (
-        <IngresoResponsive
-          key={data.id}
-          date_created={data.date_created}
-          payment_method={data.payment_method}
-          category={data.category}
-          name={data.name}
-          concept={data.concept}
-          amount={data.amount}
-          date_to_pay={data.date_to_pay}
-          state={data.state}
-          date_cashed={data.date_cashed}
-        />
-      ))}
-      </Box>
-
-        <TableCustom
-      arrays={listaDatos}
-      showModal={showModal}
-      setInitialValues={setInitialValues}
-      setModal2Open={setModal2Open}
-    />
-*/
 }
-

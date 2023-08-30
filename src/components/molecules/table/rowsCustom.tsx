@@ -1,5 +1,6 @@
 import * as React                 from "react";
 import Styles                     from "../../../pages/registroIngreso/ingresos.module.scss";
+import Style                      from '../../../pages/registroEgreso/egreso.module.scss';
 import fn                         from "../../../utility";
 import TableCell                  from "@mui/material/TableCell";
 import TableRow                   from "@mui/material/TableRow";
@@ -27,18 +28,20 @@ export const RowsCustom = ({
   page,
   rowsPerPage,
   setInitialValues,
+  status,
 }: {
-  pullData: any;
-  page: any;
-  rowsPerPage: any;
+  pullData:         any;
+  page:             any;
+  rowsPerPage:      any;
   setInitialValues: Function;
+  status:           boolean;
 }) => {
 
   const cambiarStatus = (id: number) => {
     alert(id);
   };
 
-  const eliminar = (id: string) => {
+  const eliminarIngreso = (id: string) => {
     const scriptURL           = localStorage.getItem("site") + "/eliminarIngresoFuturo"; // deberia es
     const ingresos_futuros_id = id;
     const dataU               = { ingresos_futuros_id };
@@ -60,6 +63,29 @@ export const RowsCustom = ({
         console.error("Error!", error.message);
       });
   };
+
+  const eliminarEgreso = (id: string) => {
+    const scriptURL = localStorage.getItem('site')+"/eliminarEgresoFuturo"; // deberia es
+    const egresos_futuros_id = id;
+    const dataU = {egresos_futuros_id};
+
+    fetch(scriptURL, {
+       method: 'POST',
+       body: JSON.stringify(dataU),
+       headers:{
+         'Content-Type': 'application/json'
+       }
+     })
+    .then((resp) => resp.json())
+    .then(function(info) {
+      fn.agregarClase("tr[idTr='"+id+"']", "u-ocultar");
+      //fn.ejecutarClick("#btnBuscar");
+     })
+     .catch(error => {
+       alert(error.message);
+       console.error('Error!', error.message);
+     });
+  }
 
   return (
     <>
@@ -166,57 +192,121 @@ export const RowsCustom = ({
               <TableCell align="left">  {data.concept}              </TableCell>
               <TableCell align="left">  ${formatNumber(data.amount)}</TableCell>
               <TableCell align="left">  {data.date_to_pay}          </TableCell>
-              <TableCell align="left">
-                {data.state == "Cobrado" ? (
-                  <Chip
-                    icon        = {<PriceCheckIcon />}
-                    size        = "small"
-                    label       = "Cobrado"
-                    className   = {Styles.chipTable}
-                  />
-                ) : (
-                  <Chip
-                    icon      = {<MoneyOffIcon />}
-                    label     = "No cobrado"
-                    size      = "small"
-                    className = {Styles.chipTableNo}
-                    onClick   = {() => {
-                      //showModalC(true);
-                    }}
-                  />
-                )}
-              </TableCell>
+              {
+                status
+                ? (
+                  <TableCell align="left">
+                    {data.state == "Cobrado" ? (
+                      <Chip
+                        icon        = {<PriceCheckIcon />}
+                        size        = "small"
+                        label       = "Cobrado"
+                        className   = {Styles.chipTable}
+                      />
+                    ) : (
+                      <Chip
+                        icon      = {<MoneyOffIcon />}
+                        label     = "No cobrado"
+                        size      = "small"
+                        className = {Styles.chipTableNo}
+                        onClick   = {() => {
+                          //showModalC(true);
+                        }}
+                      />
+                    )}
+                  </TableCell>
+                )
+                : (
+                  <TableCell align="left" className="IcoEstados">
+                    {data.state == "Pagado" ? (
+                      <Chip
+                        icon={<span className="icon-icoCobrar"></span>}
+                        size="small"
+                        label="Pagado"
+                        className={Style.chipTable}
+                        //onClick={()=>{showModalC(data.id,2)}}
+                      />
+                    ) : (
+                      <Chip
+                        icon={<span className="icon-icoCobrarDismiss"></span>}
+                        label="No pagado"
+                        size="small"
+                        className={Style.chipTableNo}
+                        //onClick={()=>{showModalC(data.id,1)}}
+                      />
+                    )}
+                  </TableCell>
+                )
+              }
               <TableCell align="left">  {data.date_cashed}  </TableCell>
               <TableCell className="Iconos-Tabla" align="right">
-                <div className={Styles.btnSection}>
-                  <ModalBank
-                    namePerson          = {true}
-                    txtCantidad         = {false}
-                    inputsIngresoEgreso = {true}
-                    txtConcept          = {true}
-                    fechaPago           = {true}
-                    text                = {''}
-                    cargarDatos         = {() => {}}
-                    edit                = {true}
-                    arrayData           = {pullData}
-                    rowId               = {data.id}
-                  />
-                  <Popconfirm
-                    title       = "¿Desea eliminar este registro?"
-                    description = ""
-                    onConfirm   = {() => {
-                      eliminar(data.id);
-                    }}
-                    onCancel    = {cancel}
-                    okText      = "Si"
-                    cancelText  = "No"
-                  >
-                    <DeleteIcon
-                      className = "icoBorrar u-efecto slideRight"
-                      onClick   = {() => {}}
-                    />
-                  </Popconfirm>
-                </div>
+                {
+                  status
+                  ? (
+                    <div className={Styles.btnSection}>
+                      <ModalBank
+                        namePerson          = {true}
+                        txtCantidad         = {false}
+                        inputsIngresoEgreso = {true}
+                        txtConcept          = {true}
+                        fechaPago           = {true}
+                        text                = {''}
+                        cargarDatos         = {() => {}}
+                        edit                = {true}
+                        arrayData           = {pullData}
+                        rowId               = {data.id}
+                        saveDataEgreso      = {false}
+                      />
+                      <Popconfirm
+                        title       = "¿Desea eliminar este registro?"
+                        description = ""
+                        onConfirm   = {() => {
+                          eliminarIngreso(data.id);
+                        }}
+                        onCancel    = {cancel}
+                        okText      = "Si"
+                        cancelText  = "No"
+                      >
+                        <DeleteIcon
+                          className = "icoBorrar u-efecto slideRight"
+                          onClick   = {() => {}}
+                        />
+                      </Popconfirm>
+                    </div>
+                  )
+                  : (
+                    <div className={Styles.btnSection}>
+                      <ModalBank
+                        namePerson          = {true}
+                        txtCantidad         = {false}
+                        inputsIngresoEgreso = {true}
+                        txtConcept          = {true}
+                        fechaPago           = {true}
+                        text                = {''}
+                        cargarDatos         = {() => {}}
+                        edit                = {true}
+                        arrayData           = {pullData}
+                        rowId               = {data.id}
+                        saveDataEgreso      = {true}
+                      />
+                      <Popconfirm
+                        title       = "¿Desea eliminar este registro?"
+                        description = ""
+                        onConfirm   = {() => {
+                          eliminarEgreso(data.id);
+                        }}
+                        onCancel    = {cancel}
+                        okText      = "Si"
+                        cancelText  = "No"
+                      >
+                        <DeleteIcon
+                          className = "icoBorrar u-efecto slideRight"
+                          onClick   = {() => {}}
+                        />
+                      </Popconfirm>
+                    </div>
+                  )
+                }
               </TableCell>
             </TableRow>
           )
