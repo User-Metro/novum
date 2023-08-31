@@ -12,6 +12,7 @@
 
 .ModalSelectBrVerde {
   border-color: #00C62F !important;
+  width: 35%;
 }
 
 .ModalCantidad {
@@ -205,8 +206,20 @@
 }
 
 @media all and (min-width: 718px){
- .itemSearch{
-    width: 400px;
+  .counter{
+    flex-grow: 1;
+  }
+
+  .itemSearch{
+    flex-grow: 1;
+  }
+
+  .searchSelect{
+    flex-grow: 2;
+  }
+
+  .itemButton{
+    flex-grow: 1;
   }
 
   .resultResponsive{
@@ -227,13 +240,18 @@
     order: 1;
   }
 
+  .searchSelect{
+    order: 2;
+    width: 100%;
+  }
+
   .itemSearch{
     order: 3;
     width: 100%;
   }
 
   .itemButton{
-    order: 2;
+    order: 4;
     align-self: end;
     margin-top: -32px;
     margin-bottom: 8px;

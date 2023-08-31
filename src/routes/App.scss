@@ -417,3 +417,7 @@
 .ant-menu-item-selected .icon-icoResumen:before {
  color: #fff !important;
 }
+
+:where(.css-dev-only-do-not-override-fpg3f5).ant-layout{
+  background: #fff;
+}

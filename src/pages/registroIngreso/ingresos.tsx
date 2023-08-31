@@ -1,18 +1,16 @@
 import Styles                   from "./ingresos.module.scss";
 import Box                      from "@mui/material/Box";
-import Paper                    from "@mui/material/Paper";
 import CircularProgress         from "@mui/material/CircularProgress";
 import { useState }             from "react";
 import fn                       from "../../utility";
 import fng                      from "../../components/atoms/ingresos/funciones";
 import { message }              from "antd";
-import dayjs                    from "dayjs";
 import SearchIcon               from "@mui/icons-material/Search";
 import IconButton               from "@mui/material/IconButton";
-import InputBase                from "@mui/material/InputBase";
 import FileDownloadIcon         from '@mui/icons-material/FileDownload';
 import Button                   from "@mui/material/Button";
-//import * as XLSX                from 'xlsx/xlsx.mjs';
+import * as XLSX                from 'xlsx';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import { TableCustom }          from "../../components/molecules/table/tableCustom";
 import { ModalBank }            from '../../components/organims/modal-bank'
 //import { IngresoResponsive } from './IngresoResponsive.tsx';
@@ -32,30 +30,6 @@ interface IData {
 let listData: IData[];
 let data:     any;
 const user_id = localStorage.getItem("user_id");
-
-export const Ingresos = () => {
-const [open,            setOpen]              = useState(false);
-const [confirmLoading,  setConfirmLoading]    = useState(false);
-const [confirm2Loading, setConfirm2Loading]   = useState(false);
-const [messageApi,      contextHolder]        = message.useMessage();
-const [cargandoVisible, setCargandoVisible]   = useState(true);
-const [listaDatos,      setListaDatos]        = useState([]);
-const [cantidadV,       setCantidadV]         = useState<number>(0);
-const [modal2Open,      setModal2Open]        = useState(false);
-const [idIngresoStatus, setIdIngresoStatus]   = useState("0");
-const [cobrado,         setCobrado]           = useState(false);
-const [stMetodo,        setStMetodo]          = useState(0);
-const [stEstado,        setStEstado]          = useState(0);
-
-const [initialValues, setInitialValues] = useState({
-  hdId:                   "",
-  txtNombre:              "",
-  txtConcepto:            "",
-  stTipo:                 "",
-  stCategoria:            "",
-  txtMonto:               "",
-  txtFechaTentativaCobro: ""
-});
 
 async function cargarDatosIngresos(
   buscar?:                    boolean,
@@ -102,6 +76,8 @@ async function cargarDatosIngresos(
     .then((resp) => resp.json())
     .then(function (info) {
       data = fng.obtenerList(info);
+      listData = [];
+      listData = Object.assign(fng.obtenerData(info));
       //console.log(data);
 
       if (buscar) {
@@ -124,7 +100,7 @@ async function cargarDatosIngresos(
           stTipo:       "0",
           stCategoria:  "",
           txtMonto:     "",
-          txtFechaTentativaCobro: dayjs()
+          txtFechaTentativaCobro: ''
         });
         setTimeout(() => {
           setListaDatos(data);
@@ -143,6 +119,28 @@ if (user_id !== "" && user_id !== null) {
   cargarDatosIngresos();
 }
 
+export const Ingresos = () => {
+
+const [confirm2Loading, setConfirm2Loading]   = useState(false);
+const [cargandoVisible, setCargandoVisible]   = useState(true);
+const [listaDatos,      setListaDatos]        = useState([]);
+const [cantidadV,       setCantidadV]         = useState<number>(0);
+const [modal2Open,      setModal2Open]        = useState(false);
+const [idIngresoStatus, setIdIngresoStatus]   = useState("0");
+const [cobrado,         setCobrado]           = useState(false);
+const [stMetodo,        setStMetodo]          = useState(0);
+const [stEstado,        setStEstado]          = useState(0);
+
+const [initialValues, setInitialValues] = useState({
+  hdId:                   "",
+  txtNombre:              "",
+  txtConcepto:            "",
+  stTipo:                 "",
+  stCategoria:            "",
+  txtMonto:               "",
+  txtFechaTentativaCobro: ""
+});
+
 let idSI = setInterval(() => {
   if (!data) console.log("Vacio");
   else {
@@ -157,22 +155,18 @@ let idSI = setInterval(() => {
 }, 1000);
 
 const buscarPorSelect = () => {
-  cargarDatosIngresos(false,setListaDatos);
-  setStMetodo(parseInt(fn.obtenerValor("#stTipoB")));
-  setStEstado(parseInt(fn.obtenerValor("#stEstadoB")));
+  cargarDatosIngresos (false, setListaDatos);
+  setStMetodo         (parseInt(fn.obtenerValor("#stTipoB")));
+  setStEstado         (parseInt(fn.obtenerValor("#stEstadoB")));
 }
 
-/*const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-  setInitialValues({
-    hdId:                   fn.obtenerValor("#hdId"),
-    txtNombre:              fn.obtenerValor("#txtNombre"),
-    txtConcepto:            fn.obtenerValor("#txtConcepto"),
-    stTipo:                 fn.obtenerValor("#stTipo"),
-    stCategoria:            fn.obtenerValor("#stCategoria"),
-    txtMonto:               fn.obtenerValor("#txtMonto"),
-    txtFechaTentativaCobro: dayjs(dateString),
-  });
-};*/
+const handleOnExcel = () => {
+  var wb  = XLSX.utils.book_new(),
+  ws      = XLSX.utils.json_to_sheet(listData);
+
+  XLSX.utils.book_append_sheet  (wb,ws,"IngresosFuturos");
+  XLSX.writeFile                (wb,"IngresosFuturos.xlsx");
+}
 
 /* ######################################### */
 const cobrar = () => {
@@ -227,17 +221,6 @@ const revertir = () => {
   });
 };
 
-/*
-const handleOnExcel = () => {
-  var wb  = XLSX.utils.book_new(),
-  ws      = XLSX.utils.json_to_sheet(listData);
-
-  XLSX.utils.book_append_sheet  (wb,ws,"IngresosFuturos");
-  XLSX.writeFile                (wb,"IngresosFuturos.xlsx");
-}
-*/
-
-
 return (
   <Box>
     <Box    className = {Styles.nav}>
@@ -248,77 +231,66 @@ return (
         </div>
       </Box>
 
-      <Box className={Styles.itemSearch}>
-        <Paper
-          // component="form"
-          sx={{
-            display:    "flex",
-            alignItems: "center",
+      <Box  className = {Styles.itemSearch}>
+        <OutlinedInput
+          id                = "txtSearch"
+          name              = "txtSearch"
+          placeholder       = "Buscar"
+          fullWidth 
+          size              = "small"
+          aria-describedby  = "outlined-weight-helper-text"
+          endAdornment      = {
+            <IconButton
+              id            = "btnBuscar"
+              type          = "button"
+              aria-label    = "search"
+              onClick       = {() => {
+                cargarDatosIngresos(true, setListaDatos);
+                setStMetodo(0);
+                setStEstado(0);
+              }}
+            >
+              <SearchIcon />
+            </IconButton>
+          }
+          inputProps        = {{
+            'aria-label': 'weight',
           }}
-          className     = "BorderContenedor"
-        >
-          <InputBase
-            id          = "txtSearch"
-            name        = "txtSearch"
-            sx          = {{ ml: 1, flex: 1 }}
-            placeholder = "Buscar"
-            inputProps  = {{ "aria-label": "search google maps" }}
-            onKeyUp     = {() => {
-              fn.ejecutarClick("#btnBuscar");
-            }}
-          />
-          <IconButton
-            id          = "btnBuscar"
-            type        = "button"
-            sx          = {{ p: "10px" }}
-            aria-label  = "search"
-            onClick     = {() => {
-              cargarDatosIngresos(true, setListaDatos);
-              setStMetodo(0);
-              setStEstado(0);
-            }}
-          >
-            <SearchIcon />
-          </IconButton>
-        </Paper>
+          onKeyUp           = {() => {
+            fn.ejecutarClick("#btnBuscar");
+          }}
+        />
       </Box>
 
-      <Box className={Styles.itemSearch}>
-        <Paper
-          sx={{
-            display:    "flex",
-            alignItems: "center",
-          }}
+      <Box  className = {Styles.searchSelect}>
+        <label htmlFor="stTipoB" className={Styles.LblFilter}>Método</label>
+        <select
+          name      = "stTipoB"
+          id        = "stTipoB"
+          className = {`${Styles.ModalSelect} ${Styles.ModalSelectBrVerde}`}
+          onChange  = {buscarPorSelect}
+          value     = {stMetodo}
         >
-          <label htmlFor="stTipoB" className={Styles.LblFilter}>Método</label>
-          <select
-            name      = "stTipoB"
-            id        = "stTipoB"
-            className = {`${Styles.ModalSelect} ${Styles.ModalSelectBrVerde}`}
-            onChange  = {buscarPorSelect}
-            value     = {stMetodo}
-          >
-            <option value="0">Todos         </option>
-            <option value="1">Efectivo      </option>
-            <option value="2">Transferencia </option>
-          </select>
+          <option value="0">Todos         </option>
+          <option value="1">Efectivo      </option>
+          <option value="2">Transferencia </option>
+        </select>
 
-          <label htmlFor="stEstadoB" className={Styles.LblFilter}>Estado</label>
-          <select
-            name      = "stEstadoB"
-            id        = "stEstadoB"
-            className = {`${Styles.ModalSelect} ${Styles.ModalSelectBrVerde}`}
-            onChange  = {buscarPorSelect}
-            value     = {stEstado}
-          >
-            <option value="0">Todos       </option>
-            <option value="1">Cobrados    </option>
-            <option value="2">No cobrados </option>
-          </select>
-        </Paper>
+        <label htmlFor="stEstadoB" className={Styles.LblFilter}>Estado</label>
+        <select
+          name      = "stEstadoB"
+          id        = "stEstadoB"
+          className = {`${Styles.ModalSelect} ${Styles.ModalSelectBrVerde}`}
+          onChange  = {buscarPorSelect}
+          value     = {stEstado}
+        >
+          <option value="0">Todos       </option>
+          <option value="1">Cobrados    </option>
+          <option value="2">No cobrados </option>
+        </select>
       </Box>
 
-      <Box className={Styles.itemButton}>
+      <Box  className = {Styles.itemButton}>
         <Button
           variant   = "contained"
           color     = "success"
@@ -326,7 +298,7 @@ return (
           classes   = {{
             root: Styles.btnCreateAccount,
           }}
-          //onClick   = {handleOnExcel}
+          onClick   = {handleOnExcel}
         >
           Exportar a excel
         </Button>

@@ -42,4 +42,52 @@ function obtenerList(info: any) {
   return listData;
 }
 
-export default { obtenerList };
+function obtenerData(info:any):object {
+  interface IData {
+    Nombre:                 string;
+    Concepto:               string;
+    Metodo:                 string;
+    Categoria:              string;
+    Monto:                  string;
+    Estado:                 string;
+    FechaDeCreacion:        string;
+    FechaTentativaDeCobro:  string;
+    FechaEnQueSeCobro:      string;
+  }
+
+  let listData: IData[];
+  listData = [];
+
+  for(let j=0; j < (Object.keys(info['listIngresosFuturos']).length); j++) {
+    const fechaCreacion             = fn.convertirFecha(info['listIngresosFuturos'][j]['fecha_creacion']);
+    const fechaCobro                = fn.convertirFecha(info['listIngresosFuturos'][j]['fecha_tentativa_cobro']);
+    const fechaEnQueSeCobro         = fn.convertirFecha(info['listIngresosFuturos'][j]['fecha_cobro']);
+    const state = fechaEnQueSeCobro ==="Pendiente"?'No cobrado':'Cobrado';
+
+    let item: {
+      Nombre:                 string;
+      Concepto:               string;
+      Metodo:                 string;
+      Categoria:              string;
+      Monto:                  string;
+      Estado:                 string;
+      FechaDeCreacion:        string;
+      FechaTentativaDeCobro:  string;
+      FechaEnQueSeCobro:      string;
+    } = {
+      Nombre:                 info["listIngresosFuturos"][j]["nombre_persona_empresa"],
+      Concepto:               info["listIngresosFuturos"][j]["concepto"],
+      Metodo:                 info["listIngresosFuturos"][j]["tipos_pagos"]["tipo_pago"],
+      Categoria:              info["listIngresosFuturos"][j]["categorias"]["categoria"],
+      Monto:                  fn.convertirModena(info["listIngresosFuturos"][j]["monto"]),
+      Estado:                 state,
+      FechaDeCreacion:        fechaCreacion,
+      FechaTentativaDeCobro:  fechaCobro,
+      FechaEnQueSeCobro:      fechaEnQueSeCobro,
+    };
+    listData.push(item);
+  }
+  return listData;
+}
+
+export default { obtenerList, obtenerData };
