@@ -4,15 +4,10 @@ import CircularProgress         from "@mui/material/CircularProgress";
 import { useState }             from "react";
 import fn                       from "../../utility";
 import fng                      from "../../components/atoms/ingresos/funciones";
-import { message }              from "antd";
-import SearchIcon               from "@mui/icons-material/Search";
-import IconButton               from "@mui/material/IconButton";
-import FileDownloadIcon         from '@mui/icons-material/FileDownload';
-import Button                   from "@mui/material/Button";
 import * as XLSX                from 'xlsx';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import { TableCustom }          from "../../components/molecules/table/tableCustom";
-import { ModalBank }            from '../../components/organims/modal-bank'
+import { ModalBank }            from '../../components/organims/modalBank'
+import { NavBar }               from '../../components/organims/navBar';
 //import { IngresoResponsive } from './IngresoResponsive.tsx';
 
 interface IData {
@@ -223,100 +218,35 @@ const revertir = () => {
 
 return (
   <Box>
-    <Box    className = {Styles.nav}>
-      <Box  className = {Styles.counter}>
-        <p>Cuentas</p>
-        <div id="NumCuenta" className={Styles.chip}>
-          {cantidadV}
-        </div>
-      </Box>
+    <Box className = {Styles.nav}>
+      <NavBar 
+        cantidadV             = {cantidadV} 
+        cargarDatosIngresos   = {cargarDatosIngresos}
+        setStMetodo           = {setStMetodo}
+        setStEstado           = {setStEstado}
+        setListaDatos         = {setListaDatos}
+        buscarPorSelect       = {buscarPorSelect}
+        stMetodo              = {stMetodo}
+        stEstado              = {stEstado}
+        handleOnExcel         = {handleOnExcel}
+        ingreso               = {true}
+      />
 
-      <Box  className = {Styles.itemSearch}>
-        <OutlinedInput
-          id                = "txtSearch"
-          name              = "txtSearch"
-          placeholder       = "Buscar"
-          fullWidth 
-          size              = "small"
-          aria-describedby  = "outlined-weight-helper-text"
-          endAdornment      = {
-            <IconButton
-              id            = "btnBuscar"
-              type          = "button"
-              aria-label    = "search"
-              onClick       = {() => {
-                cargarDatosIngresos(true, setListaDatos);
-                setStMetodo(0);
-                setStEstado(0);
-              }}
-            >
-              <SearchIcon />
-            </IconButton>
-          }
-          inputProps        = {{
-            'aria-label': 'weight',
-          }}
-          onKeyUp           = {() => {
-            fn.ejecutarClick("#btnBuscar");
-          }}
+      <Box className = {Styles.btnCreate}>
+        <ModalBank
+          namePerson          = {true}
+          txtCantidad         = {false}
+          inputsIngresoEgreso = {true}
+          txtConcept          = {true}
+          fechaPago           = {true}
+          text                = {'Ingreso futuro'}
+          cargarDatos         = {cargarDatosIngresos}
+          edit                = {false}
+          arrayData           = {null}
+          rowId               = {null}
+          saveDataEgreso      = {false}
         />
       </Box>
-
-      <Box  className = {Styles.searchSelect}>
-        <label htmlFor="stTipoB" className={Styles.LblFilter}>Método</label>
-        <select
-          name      = "stTipoB"
-          id        = "stTipoB"
-          className = {`${Styles.ModalSelect} ${Styles.ModalSelectBrVerde}`}
-          onChange  = {buscarPorSelect}
-          value     = {stMetodo}
-        >
-          <option value="0">Todos         </option>
-          <option value="1">Efectivo      </option>
-          <option value="2">Transferencia </option>
-        </select>
-
-        <label htmlFor="stEstadoB" className={Styles.LblFilter}>Estado</label>
-        <select
-          name      = "stEstadoB"
-          id        = "stEstadoB"
-          className = {`${Styles.ModalSelect} ${Styles.ModalSelectBrVerde}`}
-          onChange  = {buscarPorSelect}
-          value     = {stEstado}
-        >
-          <option value="0">Todos       </option>
-          <option value="1">Cobrados    </option>
-          <option value="2">No cobrados </option>
-        </select>
-      </Box>
-
-      <Box  className = {Styles.itemButton}>
-        <Button
-          variant   = "contained"
-          color     = "success"
-          startIcon = {<FileDownloadIcon />}
-          classes   = {{
-            root: Styles.btnCreateAccount,
-          }}
-          onClick   = {handleOnExcel}
-        >
-          Exportar a excel
-        </Button>
-      </Box>  
-
-      <ModalBank
-        namePerson          = {true}
-        txtCantidad         = {false}
-        inputsIngresoEgreso = {true}
-        txtConcept          = {true}
-        fechaPago           = {true}
-        text                = {'Ingreso futuro'}
-        cargarDatos         = {cargarDatosIngresos}
-        edit                = {false}
-        arrayData           = {null}
-        rowId               = {null}
-        saveDataEgreso      = {false}
-      />
     </Box>
 
     <TableCustom

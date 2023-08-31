@@ -1,15 +1,15 @@
 import Styles                   from "./egreso.module.scss";
 import Box                      from "@mui/material/Box";
-import Paper                    from "@mui/material/Paper";
 import CircularProgress         from "@mui/material/CircularProgress";
 import { useState }             from "react";
 import fn                       from "../../utility";
 import fng                      from "../../components/atoms/egresos/funciones";
 import { message }              from "antd";
 import dayjs                    from "dayjs";
-import type { DatePickerProps } from "antd";
 import { TableCustom }          from "../../components/molecules/table/tableCustom";
-import { ModalBank }            from '../../components/organims/modal-bank'
+import { ModalBank }            from '../../components/organims/modalBank'
+import { NavBar }               from '../../components/organims/navBar';
+import * as XLSX                from 'xlsx';
 //import { IngresoResponsive } from './IngresoResponsive.tsx';
 
 interface IData {
@@ -27,31 +27,6 @@ interface IData {
 let listData: IData[];
 let data:     any;
 const user_id = localStorage.getItem("user_id");
-
-export const Egresos = () =>{
-
-const [open,            setOpen]              = useState(false);
-const [confirmLoading,  setConfirmLoading]    = useState(false);
-const [confirm2Loading, setConfirm2Loading]   = useState(false);
-const [messageApi,      contextHolder]        = message.useMessage();
-const [cargandoVisible, setCargandoVisible]   = useState(true);
-const [listaDatos,      setListaDatos]        = useState([]);
-const [cantidadV,       setCantidadV]         = useState<number>(0);
-const [modal2Open,      setModal2Open]        = useState(false);
-const [idIngresoStatus, setIdIngresoStatus]   = useState("0");
-const [cobrado,         setCobrado]           = useState(false);
-const [stMetodo,        setStMetodo]          = useState(0);
-const [stEstado,        setStEstado]          = useState(0);
-
-const [initialValues, setInitialValues] = useState({
-  hdId:                   "",
-  txtNombre:              "",
-  txtConcepto:            "",
-  stTipo:                 "",
-  stCategoria:            "",
-  txtMonto:               "",
-  txtFechaTentativaCobro: ""
-});
 
 async function cargarDatosEgresos(
   buscar?:                    boolean,
@@ -139,6 +114,31 @@ if (user_id !== "" && user_id !== null) {
   cargarDatosEgresos();
 }
 
+export const Egresos = () =>{
+
+const [open,            setOpen]              = useState(false);
+const [confirmLoading,  setConfirmLoading]    = useState(false);
+const [confirm2Loading, setConfirm2Loading]   = useState(false);
+const [messageApi,      contextHolder]        = message.useMessage();
+const [cargandoVisible, setCargandoVisible]   = useState(true);
+const [listaDatos,      setListaDatos]        = useState([]);
+const [cantidadV,       setCantidadV]         = useState<number>(0);
+const [modal2Open,      setModal2Open]        = useState(false);
+const [idIngresoStatus, setIdIngresoStatus]   = useState("0");
+const [cobrado,         setCobrado]           = useState(false);
+const [stMetodo,        setStMetodo]          = useState(0);
+const [stEstado,        setStEstado]          = useState(0);
+
+const [initialValues, setInitialValues] = useState({
+  hdId:                   "",
+  txtNombre:              "",
+  txtConcepto:            "",
+  stTipo:                 "",
+  stCategoria:            "",
+  txtMonto:               "",
+  txtFechaTentativaCobro: ""
+});
+
 let idSI = setInterval(() => {
   if (!data) console.log("Vacio");
   else {
@@ -153,66 +153,50 @@ let idSI = setInterval(() => {
 }, 1000);
 
 const buscarPorSelect = () => {
-  cargarDatosEgresos(false, setListaDatos);
+  cargarDatosEgresos  (false, setListaDatos);
+  setStMetodo         (parseInt(fn.obtenerValor("#stTipoB")));
+  setStEstado         (parseInt(fn.obtenerValor("#stEstadoB")));
+}
+
+const handleOnExcel = () => {
+  var wb  = XLSX.utils.book_new(),
+  ws      = XLSX.utils.json_to_sheet(listData);
+
+  XLSX.utils.book_append_sheet  (wb,ws, "EgresosFuturos");
+  XLSX.writeFile                (wb,    "EgresosFuturos.xlsx");
 }
 
 return(
   <Box>
-    <Box    className = {Styles.nav}>
-      <Box  className = {Styles.counter}>
-        <p>Cuentas</p>
-        <div id="NumCuenta" className={Styles.chip}>
-          {cantidadV}
-        </div>
-      </Box>
-
-      <Box  className = {Styles.itemSearch}>
-        <Paper
-          sx={{
-            display:    "flex",
-            alignItems: "center",
-          }}
-        >
-        <label htmlFor="stTipoB" className={Styles.LblFilter}>Método</label>
-        <select
-          name        = "stTipoB"
-          id          = "stTipoB"
-          className   = {`${Styles.ModalSelect} ${Styles.ModalSelectBrVerde}`}
-          onChange    = {buscarPorSelect}
-        >
-          <option value="0">Todos         </option>
-          <option value="1">Efectivo      </option>
-          <option value="2">Transferencia </option>
-        </select>
-
-        <label htmlFor="stEstadoB" className={Styles.LblFilter}>Estado</label>
-        <select
-          name      = "stEstadoB"
-          id        = "stEstadoB"
-          className = {`${Styles.ModalSelect} ${Styles.ModalSelectBrVerde}`}
-          onChange  = {buscarPorSelect}
-        >
-          <option value="0">Todos       </option>
-          <option value="1">Cobrados    </option>
-          <option value="2">No cobrados </option>
-        </select>
-
-        </Paper>
-      </Box>
-
-      <ModalBank
-        namePerson          = {true}
-        txtCantidad         = {false}
-        inputsIngresoEgreso = {true}
-        txtConcept          = {true}
-        fechaPago           = {false}
-        text                = {'Egreso futuro'}
-        cargarDatos         = {cargarDatosEgresos}
-        edit                = {false}
-        arrayData           = {null}
-        rowId               = {null}
-        saveDataEgreso      = {true}
+    <Box className = {Styles.nav}>
+      <NavBar 
+        cantidadV             = {cantidadV} 
+        cargarDatosIngresos   = {cargarDatosEgresos}
+        setStMetodo           = {setStMetodo}
+        setStEstado           = {setStEstado}
+        setListaDatos         = {setListaDatos}
+        buscarPorSelect       = {buscarPorSelect}
+        stMetodo              = {stMetodo}
+        stEstado              = {stEstado}
+        handleOnExcel         = {handleOnExcel}
+        ingreso               = {false}
       />
+
+      <Box className = {Styles.btnCreate}>
+        <ModalBank
+          namePerson          = {true}
+          txtCantidad         = {false}
+          inputsIngresoEgreso = {true}
+          txtConcept          = {true}
+          fechaPago           = {false}
+          text                = {'Egreso futuro'}
+          cargarDatos         = {cargarDatosEgresos}
+          edit                = {false}
+          arrayData           = {null}
+          rowId               = {null}
+          saveDataEgreso      = {true}
+        />
+      </Box>
     </Box>
 
     <TableCustom

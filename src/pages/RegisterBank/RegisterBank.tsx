@@ -1,5 +1,5 @@
 import React, { useState }  from "react";
-import { ModalBank }        from '../../components/organims/modal-bank';
+import { ModalBank }        from '../../components/organims/modalBank';
 import fng                  from '../../components/molecules/banco/funciones';
 import Box                  from "@mui/material/Box";
 import Styles               from "./RegisterBank.module.scss";
