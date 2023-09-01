@@ -167,6 +167,7 @@ export const RowsCustom = ({
               | React.ReactPortal
               | null
               | undefined;
+            statusCobro: boolean;
           }) => (
             <TableRow
               key={data.id}
@@ -198,14 +199,14 @@ export const RowsCustom = ({
                   <TableCell align="left">
                     {data.state == "Cobrado" ? (
                       <Chip
-                        icon        = {<PriceCheckIcon />}
+                        icon        = {<span className="icon-icoCobrar"></span>}
                         size        = "small"
                         label       = "Cobrado"
                         className   = {Styles.chipTable}
                       />
                     ) : (
                       <Chip
-                        icon      = {<MoneyOffIcon />}
+                        icon      = {<span className="icon-icoCobrarDismiss"></span>}
                         label     = "No cobrado"
                         size      = "small"
                         className = {Styles.chipTableNo}
@@ -238,7 +239,15 @@ export const RowsCustom = ({
                   </TableCell>
                 )
               }
-              <TableCell align="left">  {data.date_cashed}  </TableCell>
+              <TableCell align="left">
+                {
+                  data.date_cashed !== "Pendiente"
+                  ? data.statusCobro == true
+                    ? <p className={Styles.txtCobrado}  >{data.date_cashed}</p>
+                    : <p className={Styles.txtNoCobrado}>{data.date_cashed}</p>
+                  : <p>{data.date_cashed}</p>
+                }
+              </TableCell>
               <TableCell className="Iconos-Tabla" align="right">
                 {
                   status

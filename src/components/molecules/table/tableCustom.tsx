@@ -58,7 +58,7 @@ export const TableCustom = ({
                 <TableCell align="left">Estado                  </TableCell>
                 <TableCell align="left">Fecha en la que se cobró</TableCell>
                 <TableCell align="left">
-                  <span className="u-visibilityHiddn">Opciones</span>
+                  <span className="u-visibilityHidden">Opciones</span>
                 </TableCell>
               </TableRow>
             </TableHead>

@@ -123,7 +123,7 @@ strong {
 
 .u-textCenter
 {
-	text-align: center;
+	text-align: center !important;
 }
 
 .u-textLeft
@@ -309,7 +309,6 @@ strong {
 	color: #fff;
 	background: #00df35;
 }
-
-:where(.css-dev-only-do-not-override-k7429z).ant-picker .ant-picker-suffix {
+.ant-picker .ant-picker-suffix {
 	color: #000 !important;
 }

@@ -371,7 +371,7 @@
 }
 
 .Iconos-Tabla svg {
-  display: none;
+  //display: none;
   font-size: 14px;
 }
 
@@ -420,4 +420,12 @@
 
 :where(.css-dev-only-do-not-override-fpg3f5).ant-layout{
   background: #fff;
+}
+
+.icon-icoCobrarDismiss::before{
+  font-size: 25px !important;
+}
+
+.icon-icoCobrar::before{
+  font-size: 25px !important;
 }

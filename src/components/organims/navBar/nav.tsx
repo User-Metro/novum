@@ -114,13 +114,12 @@ export const NavBar = ({
         <Button
           variant   = "contained"
           color     = "success"
-          startIcon = {<FileDownloadIcon />}
+          startIcon = {<span className="icon-excel"></span>}
           classes   = {{
             root: Styles.btnCreateAccount,
           }}
           onClick   = {handleOnExcel}
         >
-          Exportar a excel
         </Button>
       </Box>  
     </Box>

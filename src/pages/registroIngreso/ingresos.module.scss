@@ -20,7 +20,7 @@
   font-weight:  bold !important;
 }
 
-.chipTable svg{
+.chipTable Span::before{
   color: white !important;
 }
 
@@ -30,7 +30,7 @@
   font-weight: bold !important;
 }
 
-.chipTableNo svg{
+.chipTableNo Span::before{
   color: white !important;
 }
 
@@ -134,9 +134,8 @@
   padding: 50px 0px !important;
 }
 
-.ModalCobrar span.icon-icoCobrar
-{
-  font-size: 40px !important;
+.icon-icoCobrar::before{
+  font-size: 25px !important;
 }
 
 .ModalCobrar p {
