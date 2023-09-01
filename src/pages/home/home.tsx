@@ -3,26 +3,29 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import type { MenuProps }                       from "antd";
 import { Avatar, Space }                        from "antd";
 import { Layout, Button, Menu, theme }          from "antd";
+import AppBar                                   from "@mui/material/AppBar";
+import Box                                      from "@mui/material/Box";
+import Divider                                  from "@mui/material/Divider";
+import Drawer                                   from "@mui/material/Drawer";
+import IconButton                               from "@mui/material/IconButton";
+import MenuIcon                                 from "@mui/icons-material/Menu";
+import Toolbar                                  from "@mui/material/Toolbar";
+import style                                    from "./home.module.scss";
+import { Resumen }                              from "../../components/molecules/resumen";
+import { RegistrarCajaOBanco }                  from "../../hooks/RegistrarCajaOBanco";
+import { RegistrarIngresosFuturos }             from "../../hooks/RegistrarIngresosFuturos";
+import { RegistrarEgresosFuturos }              from "../../hooks/RegistrarEgresos";
+import { CerrarSesion }                         from '../../cerrarSesion';
 
-import style                        from "./home.module.scss";
-import { Resumen }                  from "../../components/molecules/resumen";
-import { RegistrarCajaOBanco }      from "../../hooks/RegistrarCajaOBanco";
-import { RegistrarIngresosFuturos } from "../../hooks/RegistrarIngresosFuturos";
-import { RegistrarEgresosFuturos }  from "../../hooks/RegistrarEgresos";
 
-import AppBar       from "@mui/material/AppBar";
-import Box          from "@mui/material/Box";
-import Divider      from "@mui/material/Divider";
-import Drawer       from "@mui/material/Drawer";
-import IconButton   from "@mui/material/IconButton";
-import MenuIcon     from "@mui/icons-material/Menu";
-import Toolbar      from "@mui/material/Toolbar";
 
 const drawerWidth = 250;
 
 const { Header, Content, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
+
+const iniciales_usuario = localStorage.getItem('iniciales');
 
 function getItem(
   label:      React.ReactNode,
@@ -153,11 +156,7 @@ export const Home = (props: any) => {
               <span className="path6"></span>
             </span>
           </Box>
-          <Box>
-            <Avatar size={40} className={`${style.HomeUser} u-floatRight`}>
-              AP
-            </Avatar>
-          </Box>
+          <CerrarSesion iniciales={iniciales_usuario} />
         </Toolbar>
       </AppBar>
       <Box component="nav">

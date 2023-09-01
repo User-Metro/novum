@@ -7,7 +7,7 @@ import fng                      from "../../components/atoms/egresos/funciones";
 import { message }              from "antd";
 import dayjs                    from "dayjs";
 import { TableCustom }          from "../../components/molecules/table/tableCustom";
-import { ModalBank }            from '../../components/organims/modalBank'
+import { ModalBank }            from '../../components/organims/modalRegister'
 import { NavBar }               from '../../components/organims/navBar';
 import * as XLSX                from 'xlsx';
 //import { IngresoResponsive } from './IngresoResponsive.tsx';

@@ -56,7 +56,13 @@ export const TableCustom = ({
                 <TableCell align="left">Monto                   </TableCell>
                 <TableCell align="left">Fecha de pago tentativa </TableCell>
                 <TableCell align="left">Estado                  </TableCell>
-                <TableCell align="left">Fecha en la que se cobró</TableCell>
+                <TableCell align="left">
+                  {
+                    ingreso
+                      ? 'Fecha en la que se cobró'
+                      : 'Fecha en la que se pago'
+                  }
+                </TableCell>
                 <TableCell align="left">
                   <span className="u-visibilityHidden">Opciones</span>
                 </TableCell>

@@ -44,9 +44,28 @@ export const Login = () => {
             setCargandoVisible(false);
 
             if (data.usuario_id > 0) {
-              message.success("Logueado!");
-              localStorage.setItem("user_id", JSON.stringify(data.usuario_id));
-              window.location.href = "/Home";
+              let user_id = data.usuario_id;
+              const scriptURL = localStorage.getItem('site')+"/obtenerIniciales";
+              let dataUrl = {user_id};
+
+              fetch(scriptURL, {
+                method: 'POST',
+                body: JSON.stringify(dataUrl),
+                headers:{
+                  'Content-Type': 'application/json'
+                }
+              })
+              .then((resp) => resp.json())
+              .then(function(data) {
+                message.success('Logueado!');
+                localStorage.setItem('user_id', JSON.stringify(user_id));
+                localStorage.setItem('iniciales', data.iniciales);
+                window.location.href ='/Home';
+              })
+              .catch(error => {
+                alert(error.message);
+                console.error('Error!', error.message);
+              });
             } else message.error("Los datos de acceso son incorrectos");
           })
           .catch((error) => {

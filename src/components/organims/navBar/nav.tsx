@@ -1,7 +1,6 @@
 import Styles                   from './nav.module.scss';
 import SearchIcon               from "@mui/icons-material/Search";
 import IconButton               from "@mui/material/IconButton";
-import FileDownloadIcon         from '@mui/icons-material/FileDownload';
 import Button                   from "@mui/material/Button";
 import OutlinedInput            from '@mui/material/OutlinedInput';
 import Box                      from "@mui/material/Box";

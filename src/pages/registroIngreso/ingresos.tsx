@@ -6,7 +6,7 @@ import fn                       from "../../utility";
 import fng                      from "../../components/atoms/ingresos/funciones";
 import * as XLSX                from 'xlsx';
 import { TableCustom }          from "../../components/molecules/table/tableCustom";
-import { ModalBank }            from '../../components/organims/modalBank'
+import { ModalBank }            from '../../components/organims/modalRegister'
 import { NavBar }               from '../../components/organims/navBar';
 //import { IngresoResponsive } from './IngresoResponsive.tsx';
 

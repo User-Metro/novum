@@ -41,34 +41,21 @@
   color: #fff !important;
 }
 
-.ant-btn-default {
-  display: none !important;
+.icon-icoCobrarDismiss::before{
+  font-size: 25px !important;
 }
 
-.Login_Login__VdlKH .ant-btn-primary {
-  color: #fff;
-  font-size: 13px;
-  line-height: 13px;
-  font-weight: 500;
-  background: #00C62F;
+.icon-icoCobrar::before{
+  font-size: 25px !important;
 }
 
-.Login_Login__VdlKH .ant-btn-primary:hover {
-  cursor: pointer !important;
-  background: #00df35;
+#BtnSiguiente, #BtnTerminar {
+  display: none;
 }
 
-:where(.css-dev-only-do-not-override-k7429z).ant-steps .ant-steps-item-finish .ant-steps-item-icon {
-  background-color: #D9FFE2;
-  border-color: #D9FFE2;
-}
-
-.ant-steps-item-active .ant-steps-item-title {
-  color: #000 !important;
-}
-
-:where(.css-dev-only-do-not-override-k7429z).ant-steps .ant-steps-item-finish .ant-steps-item-icon >.ant-steps-icon {
-  color: #00C62F;
+.Iconos-Tabla svg {
+  //display: none;
+  font-size: 14px;
 }
 
 .intl-tel-input {
@@ -110,155 +97,8 @@
   text-align: left !important;
 }
 
-.intl-tel-input input::-webkit-input-placeholder
-{
- 	color: #adadad;
-}
-
-.intl-tel-input input::-o-input-placeholder
-{
- 	color: #adadad;
-}
-
-.intl-tel-input input::-ms-input-placeholder
-{
- 	color: #adadad;
-}
-
-.intl-tel-input input:-moz-input-placeholder
-{
- 	color: #adadad;
-}
-
-.intl-tel-input input::-moz-input-placeholder
-{
- 	color: #adadad;
-}
-
-.intl-tel-input input:focus-visible {
-  outline: 0px !important;
-}
-
-:where(.css-dev-only-do-not-override-k7429z).ant-space {
-  display: block;
-}
-
-:where(.css-dev-only-do-not-override-k7429z).ant-input-affix-wrapper >input.ant-input {
-  height: 18px;
-  font-size: 12px;
-  margin-bottom: 0px !important;
-}
-
-:where(.css-dev-only-do-not-override-k7429z).ant-input-affix-wrapper {
-  height: 29px;
-  margin-bottom: 12px;
-}
-
-:where(.css-dev-only-do-not-override).ant-menu-inline .ant-menu-item {
-  width: 100%;
-  height: 35px !important;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 12px !important;
-  margin-left: 0px;
-  margin-top: 0px !important;
-  margin-bottom: 0px !important;
-  padding-left: 26px !important;
-  border-radius: 0px !important;
-}
-
-:where(.css-dev-only-do-not-override-k7429z).ant-menu-light .ant-menu-item-selected, :where(.css-dev-only-do-not-override-k7429z).ant-menu-light>.ant-menu .ant-menu-item-selected {
-  color: #ffffff;
-}
-
-.ant-menu-item-selected .icon-icoResumen:before {
-  color: #ffffff !important;
-}
-
-
-:where(.css-dev-only-do-not-override-k7429z).ant-btn-primary {
-  color: #000;
-  background-color: #ffffff;
-}
-
-:where(.css-dev-only-do-not-override-k7429z).ant-btn-primary {
-  margin-left: 15px;
-  padding: 4px 8px;
-  position: relative;
-  top: -8px;
-}
-
-:where(.css-dev-only-do-not-override-k7429z).ant-layout .ant-layout-sider-has-trigger {
-  width: 236px !important;
-  min-width: auto !important;
-  max-width: initial !important;
-  flex: 0 0 236px !important;
-  background: #fff !important;
-  padding-bottom: 48px;
-}
-
-:where(.css-dev-only-do-not-override-k7429z).ant-layout .ant-layout-sider-trigger {
-  width: 245px !important;
-  min-width: 245px !important;
-  max-width: 245px !important;
-  background: #fff !important;
-}
-
-:where(.css-dev-only-do-not-override-k7429z).ant-menu-inline .ant-menu-item:not(:last-child), :where(.css-dev-only-do-not-override-k7429z).ant-menu-vertical .ant-menu-item:not(:last-child) {
-  margin: 0px;
-  margin-bottom: 8px;
-  border-radius: 0px;
-}
-
-:where(.css-dev-only-do-not-override-k7429z).ant-menu-inline-collapsed >.ant-menu-item {
-  padding-left: 22px;
-}
-
-:where(.css-dev-only-do-not-override-k7429z).ant-layout .ant-layout-sider-collapsed {
-  /* width: 80px !important; 
-  min-width: auto !important;
-  max-width: initial !important;
-  flex: 0 0 80px !important; */
-  background: #fff !important;
-  padding-bottom: 48px;
-}
-
-:where(.css-dev-only-do-not-override-k7429z).ant-layout .ant-layout-sider-children .ant-menu.ant-menu-inline-collapsed {
-  width: 80px !important;
-}
-
-.Home_HomeHeader__wcSyt .ant-btn-primary:not(:disabled):hover {
-  color: #01c630;
-  background-color: #ffffff;
-}
-
-:where(.css-dev-only-do-not-override-k7429z).ant-layout {
-  background: #ffffff !important;
-}
-
-.Home_HomeBienvenida__sj2zO .ant-btn-primary {
-  color: #ffffff;
-  background-color: #00C62F;
-  font-size: 11px;
-  font-weight: 600;
-  margin-left: 0px;
-  margin-top: 22px;
-  padding: 0px 14px;
-  top: 0px;
-}
-
-.Home_HomeBienvenida__sj2zO .ant-btn-primary:hover {
-  cursor: pointer !important;
-  background: #00df35;
-}
-
-.Home_RegistarBanco__wRoqq .anticon svg {
-  font-size: 14px !important;
-  vertical-align: inherit;
-}
-
-#BtnSiguiente, #BtnTerminar {
-  display: none;
+.ant-btn-default {
+  display: none !important;
 }
 
 .Cargando {
@@ -285,8 +125,42 @@
   display: block;
 }
 
-.css-1d6wzja-MuiButton-startIcon>*:nth-of-type(1) {
-  font-size: 16px !important;
+.ant-menu .ant-menu-item{
+  width: 100%;
+ height: 35px !important;
+ font-size: 12px;
+ font-weight: 500;
+ line-height: 12px !important;
+ margin-left: 0px;
+ margin-top: 0px !important;
+ margin-bottom: 0px !important;
+ padding-left: 26px !important;
+ border-radius: 0px !important;
+}
+
+.ant-menu .ant-menu-item:hover {
+ background: url(../image/hoverMenu.png) no-repeat right;
+ color: black !important;
+ background-size: cover;
+ -webkit-transition: all 300ms ease-out;
+  -moz-transition: all 300ms ease-out;
+  -ms-transition: all 300ms ease-out;
+  -o-transition: all 300ms ease-out;
+  transition: all 300ms ease-out;
+}
+
+.ant-menu-item-selected {
+ color: #FFF !important;
+ background: url(../image/selectedMenu.png) no-repeat right;
+ background-size: cover;
+}
+
+:where(.css-dev-only-do-not-override-fpg3f5).ant-layout{
+  background: #fff;
+}
+
+.Iconos-Tabla .icoBorrar {
+  color: #f52121
 }
 
 .css-78trlr-MuiButtonBase-root-MuiIconButton-root {
@@ -341,91 +215,10 @@
   background-color: rgba(0, 0, 0, 0.04);
 }
 
-:where(.css-dev-only-do-not-override-k7429z).ant-menu {
-  text-align: left !important;
+.anticon svg {
+  display: none;
 }
 
-.MuiTable-root tr {
-  -webkit-transition: all 300ms ease-out;
-  -moz-transition: all 300ms ease-out;
-  -ms-transition: all 300ms ease-out;
-  -o-transition: all 300ms ease-out;
-  transition: all 300ms ease-out;
-}
-
-.MuiTable-root tr:hover {
-  background: #d9ffe2;
-  -webkit-transition: all 300ms ease-out;
-  -moz-transition: all 300ms ease-out;
-  -ms-transition: all 300ms ease-out;
-  -o-transition: all 300ms ease-out;
-  transition: all 300ms ease-out;
-}
-
-.MuiTable-root tr:hover {
-  background: #d9ffe2;
-}
-
-.Iconos-Tabla {
-
-}
-
-.Iconos-Tabla svg {
-  //display: none;
-  font-size: 14px;
-}
-
-.MuiTable-root tr:hover svg {
-  display: inline-block;
-}
-
-.Iconos-Tabla .icoBorrar {
-  color: #f52121
-}
-
-.ant-menu .ant-menu-item{
-  width: 100%;
- height: 35px !important;
- font-size: 12px;
- font-weight: 500;
- line-height: 12px !important;
- margin-left: 0px;
- margin-top: 0px !important;
- margin-bottom: 0px !important;
- padding-left: 26px !important;
- border-radius: 0px !important;
-}
-
-.ant-menu .ant-menu-item:hover {
- background: url(../image/hoverMenu.png) no-repeat right;
- color: black !important;
- background-size: cover;
- -webkit-transition: all 300ms ease-out;
-  -moz-transition: all 300ms ease-out;
-  -ms-transition: all 300ms ease-out;
-  -o-transition: all 300ms ease-out;
-  transition: all 300ms ease-out;
-}
-
-.ant-menu-item-selected {
- color: #FFF !important;
- background: url(../image/selectedMenu.png) no-repeat right;
- background-size: cover;
-}
-
-
-.ant-menu-item-selected .icon-icoResumen:before {
- color: #fff !important;
-}
-
-:where(.css-dev-only-do-not-override-fpg3f5).ant-layout{
-  background: #fff;
-}
-
-.icon-icoCobrarDismiss::before{
-  font-size: 25px !important;
-}
-
-.icon-icoCobrar::before{
-  font-size: 25px !important;
+.ant-avatar .ant-avatar-string{
+  line-height: 35px !important;
 }

@@ -11,7 +11,7 @@ import PaymentOutlinedIcon        from "@mui/icons-material/PaymentOutlined";
 import RequestQuoteOutlinedIcon   from "@mui/icons-material/RequestQuoteOutlined";
 import DeleteIcon                 from "@mui/icons-material/Delete";
 import { message, Popconfirm }    from "antd";
-import { ModalBank }              from '../../organims/modalBank';
+import { ModalBank }              from '../../organims/modalRegister';
 
 const cancel = () => {
   message.error("Click on No");
