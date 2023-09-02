@@ -4,14 +4,12 @@ import Style                      from '../../../pages/registroEgreso/egreso.mod
 import fn                         from "../../../utility";
 import TableCell                  from "@mui/material/TableCell";
 import TableRow                   from "@mui/material/TableRow";
-import Chip                       from "@mui/material/Chip";
-import MoneyOffIcon               from "@mui/icons-material/MoneyOff";
-import PriceCheckIcon             from "@mui/icons-material/PriceCheck";
 import PaymentOutlinedIcon        from "@mui/icons-material/PaymentOutlined";
 import RequestQuoteOutlinedIcon   from "@mui/icons-material/RequestQuoteOutlined";
 import DeleteIcon                 from "@mui/icons-material/Delete";
 import { message, Popconfirm }    from "antd";
 import { ModalBank }              from '../../organims/modalRegister';
+import { ModalTB }                from '../../organims/modalTable';
 
 const cancel = () => {
   message.error("Click on No");
@@ -29,12 +27,22 @@ export const RowsCustom = ({
   rowsPerPage,
   setInitialValues,
   status,
+  cargarDatosIngresos,
+  setListaDatos,
+  confirm2Loading,
+  setConfirm2Loading,
+  cargarDatosEgresos,
 }: {
-  pullData:         any;
-  page:             any;
-  rowsPerPage:      any;
-  setInitialValues: Function;
-  status:           boolean;
+  pullData:             any;
+  page:                 any;
+  rowsPerPage:          any;
+  setInitialValues:     Function;
+  status:               boolean;
+  cargarDatosIngresos:  Function;
+  setListaDatos:        Function;
+  confirm2Loading:      any;
+  setConfirm2Loading:   Function;
+  cargarDatosEgresos:   Function;
 }) => {
 
   const cambiarStatus = (id: number) => {
@@ -168,6 +176,7 @@ export const RowsCustom = ({
               | null
               | undefined;
             statusCobro: boolean;
+            date_created_o: any;
           }) => (
             <TableRow
               key={data.id}
@@ -198,21 +207,28 @@ export const RowsCustom = ({
                 ? (
                   <TableCell align="left">
                     {data.state == "Cobrado" ? (
-                      <Chip
-                        icon        = {<span className="icon-icoCobrar"></span>}
-                        size        = "small"
-                        label       = "Cobrado"
-                        className   = {Styles.chipTable}
+                      <ModalTB
+                        ingreso             = {true}
+                        cobradoPagado       = {true}
+                        id                  = {data.id}
+                        date_created_o      = {data.date_created_o}
+                        cargarDatosIngresos = {cargarDatosIngresos}
+                        setListaDatos       = {setListaDatos}
+                        confirm2Loading     = {confirm2Loading}
+                        setConfirm2Loading  = {setConfirm2Loading}
+                        cargarDatosEgresos  = {cargarDatosEgresos}
                       />
                     ) : (
-                      <Chip
-                        icon      = {<span className="icon-icoCobrarDismiss"></span>}
-                        label     = "No cobrado"
-                        size      = "small"
-                        className = {Styles.chipTableNo}
-                        onClick   = {() => {
-                          //showModalC(true);
-                        }}
+                      <ModalTB
+                        ingreso             = {true}
+                        cobradoPagado       = {false}
+                        id                  = {data.id}
+                        date_created_o      = {data.date_created_o}
+                        cargarDatosIngresos = {cargarDatosIngresos}
+                        setListaDatos       = {setListaDatos}
+                        confirm2Loading     = {confirm2Loading}
+                        setConfirm2Loading  = {setConfirm2Loading}
+                        cargarDatosEgresos  = {cargarDatosEgresos}
                       />
                     )}
                   </TableCell>
@@ -220,20 +236,28 @@ export const RowsCustom = ({
                 : (
                   <TableCell align="left" className="IcoEstados">
                     {data.state == "Pagado" ? (
-                      <Chip
-                        icon={<span className="icon-icoCobrar"></span>}
-                        size="small"
-                        label="Pagado"
-                        className={Style.chipTable}
-                        //onClick={()=>{showModalC(data.id,2)}}
+                      <ModalTB
+                        ingreso             = {false}
+                        cobradoPagado       = {true}
+                        id                  = {data.id}
+                        date_created_o      = {data.date_created_o}
+                        cargarDatosIngresos = {cargarDatosIngresos}
+                        setListaDatos       = {setListaDatos}
+                        confirm2Loading     = {confirm2Loading}
+                        setConfirm2Loading  = {setConfirm2Loading}
+                        cargarDatosEgresos  = {cargarDatosEgresos}
                       />
                     ) : (
-                      <Chip
-                        icon={<span className="icon-icoCobrarDismiss"></span>}
-                        label="No pagado"
-                        size="small"
-                        className={Style.chipTableNo}
-                        //onClick={()=>{showModalC(data.id,1)}}
+                      <ModalTB
+                        ingreso             = {false}
+                        cobradoPagado       = {false}
+                        id                  = {data.id}
+                        date_created_o      = {data.date_created_o}
+                        cargarDatosIngresos = {cargarDatosIngresos}
+                        setListaDatos       = {setListaDatos}
+                        confirm2Loading     = {confirm2Loading}
+                        setConfirm2Loading  = {setConfirm2Loading}
+                        cargarDatosEgresos  = {cargarDatosEgresos}
                       />
                     )}
                   </TableCell>

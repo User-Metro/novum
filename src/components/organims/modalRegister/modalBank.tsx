@@ -7,12 +7,8 @@ import EditIcon                               from "@mui/icons-material/Edit";
 import { Formik, Form, FieldInputProps }      from "formik";
 import { Modal, message, Input, DatePicker }  from "antd";
 import { useState }                           from "react";
-import type { DatePickerProps }               from "antd";
-import dayjs                                  from "dayjs";
 import * as Yup                               from "yup";
 import fn                                     from "../../../utility";
-import fnc                                    from "../../molecules/banco/funciones";
-import fng                                    from "../../atoms/ingresos/funciones";
 
 const user_id = localStorage.getItem("user_id");
 
@@ -46,9 +42,6 @@ export const ModalBank = ({
   const [messageApi,      contextHolder]        = message.useMessage();
   const [listaDatos,      setListaDatos]        = useState([]);
   const [cargandoModal,   setcargandoModal]     = useState(false);
-  const [cobrado,         setCobrado]           = useState(false);
-  const [modal2Open,      setModal2Open]        = useState(false);
-  const [idIngresoStatus, setIdIngresoStatus]   = useState("0");
   const [value,           setValue]             = useState<any>();
 
   const [initialValuesCaja, setInitialValuesCaja] = useState({
@@ -124,17 +117,6 @@ export const ModalBank = ({
     }, 800);
   };
 
-  /*##############################*/
-
-  const showModalC = (id: any, tipo: number) => {
-    tipo === 1 ? setCobrado(false) : setCobrado(true);
-    setModal2Open(true);
-  
-    setTimeout(() => {
-      setIdIngresoStatus(id);
-    }, 500);
-  };
-
   const editar = (id: any) => {
     showModal();
     console.log(arrayData);
@@ -153,7 +135,6 @@ export const ModalBank = ({
       });
     }, 100);
   };
-
 
   return (
     <Box>

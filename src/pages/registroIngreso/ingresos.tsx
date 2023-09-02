@@ -4,6 +4,7 @@ import CircularProgress         from "@mui/material/CircularProgress";
 import { useState }             from "react";
 import fn                       from "../../utility";
 import fng                      from "../../components/atoms/ingresos/funciones";
+import dayjs, { Dayjs } from 'dayjs';
 import * as XLSX                from 'xlsx';
 import { TableCustom }          from "../../components/molecules/table/tableCustom";
 import { ModalBank }            from '../../components/organims/modalRegister'
@@ -120,9 +121,6 @@ const [confirm2Loading, setConfirm2Loading]   = useState(false);
 const [cargandoVisible, setCargandoVisible]   = useState(true);
 const [listaDatos,      setListaDatos]        = useState([]);
 const [cantidadV,       setCantidadV]         = useState<number>(0);
-const [modal2Open,      setModal2Open]        = useState(false);
-const [idIngresoStatus, setIdIngresoStatus]   = useState("0");
-const [cobrado,         setCobrado]           = useState(false);
 const [stMetodo,        setStMetodo]          = useState(0);
 const [stEstado,        setStEstado]          = useState(0);
 
@@ -163,59 +161,6 @@ const handleOnExcel = () => {
   XLSX.writeFile                (wb,"IngresosFuturos.xlsx");
 }
 
-/* ######################################### */
-const cobrar = () => {
-  const scriptURL           = localStorage.getItem('site')+"/cambiarCobrado"; // deberia es
-  const ingresos_futuros_id = idIngresoStatus;
-  const dataU               = {ingresos_futuros_id};
-  setConfirm2Loading(true)
-  fetch(scriptURL, {
-     method: 'POST',
-     body:    JSON.stringify(dataU),
-     headers:{
-       'Content-Type': 'application/json'
-     }
-   })
-  .then((resp) => resp.json())
-  .then(function(info) {
-    cargarDatosIngresos(true,setListaDatos);
-    setTimeout(()=> {
-      setModal2Open       (false);
-      setConfirm2Loading  (false)
-    },600)
-  })
-  .catch(error => {
-    console.log   (error.message);
-    console.error ('Error!', error.message);
-  });
-};
-
-const revertir = () => {
-  const scriptURL           = localStorage.getItem('site')+"/revertirCobro"; // deberia es
-  const ingresos_futuros_id = idIngresoStatus;
-  const dataU               = {ingresos_futuros_id};
-  setConfirm2Loading(true)
-  fetch(scriptURL, {
-     method:  'POST',
-     body:    JSON.stringify(dataU),
-     headers:{
-       'Content-Type': 'application/json'
-     }
-   })
-  .then((resp) => resp.json())
-  .then(function(info) {
-    cargarDatosIngresos(true, setListaDatos);
-    setTimeout(()=> {
-      setModal2Open       (false);
-      setConfirm2Loading  (false)
-    },600)
-  })
-  .catch(error => {
-    console.log   (error.message);
-    console.error ('Error!', error.message);
-  });
-};
-
 return (
   <Box>
     <Box className = {Styles.nav}>
@@ -250,9 +195,14 @@ return (
     </Box>
 
     <TableCustom
-      arrays            = {listaDatos}
-      setInitialValues  = {setInitialValues}
-      ingreso           = {true}
+      arrays              = {listaDatos}
+      setInitialValues    = {setInitialValues}
+      ingreso             = {true}
+      cargarDatosIngresos = {cargarDatosIngresos}
+      setListaDatos       = {setListaDatos}
+      confirm2Loading     = {confirm2Loading}
+      setConfirm2Loading  = {setConfirm2Loading}
+      cargarDatosEgresos  = {()=>{}}
     />
 
     <Box

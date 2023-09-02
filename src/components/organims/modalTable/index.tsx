@@ -1,0 +1,1 @@
+export { ModalTB } from './modalTB'

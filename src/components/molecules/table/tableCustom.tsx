@@ -15,11 +15,20 @@ export const TableCustom = ({
   arrays,
   setInitialValues,
   ingreso,
-
+  cargarDatosIngresos,
+  setListaDatos,
+  confirm2Loading,
+  setConfirm2Loading,
+  cargarDatosEgresos,
 }: {
-  arrays:           any;
-  setInitialValues: Function,
-  ingreso:          boolean;
+  arrays:               any;
+  setInitialValues:     Function;
+  ingreso:              boolean;
+  cargarDatosIngresos:  Function;
+  setListaDatos:        Function;
+  confirm2Loading:      any;
+  setConfirm2Loading:   Function;
+  cargarDatosEgresos:   Function;
 }) => {
   const [page,        setPage]        = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -70,11 +79,16 @@ export const TableCustom = ({
             </TableHead>
             <TableBody>
               <RowsCustom
-                pullData          = {arrays}
-                page              = {page}
-                rowsPerPage       = {rowsPerPage}
-                setInitialValues  = {setInitialValues}
-                status            = {ingreso}
+                pullData            = {arrays}
+                page                = {page}
+                rowsPerPage         = {rowsPerPage}
+                setInitialValues    = {setInitialValues}
+                status              = {ingreso}
+                cargarDatosIngresos = {cargarDatosIngresos}
+                setListaDatos       = {setListaDatos}
+                confirm2Loading     = {confirm2Loading}
+                setConfirm2Loading  = {setConfirm2Loading}
+                cargarDatosEgresos  = {cargarDatosEgresos}
               />
             </TableBody>
           </Table>

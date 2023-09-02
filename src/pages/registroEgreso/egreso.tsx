@@ -200,9 +200,14 @@ return(
     </Box>
 
     <TableCustom
-      arrays            = {listaDatos}
-      setInitialValues  = {setInitialValues}
-      ingreso           = {false}
+      arrays               = {listaDatos}
+      setInitialValues     = {setInitialValues}
+      ingreso              = {false}
+      cargarDatosIngresos  = {()=>{}}
+      setListaDatos        = {setListaDatos}
+      confirm2Loading      = {confirm2Loading}
+      setConfirm2Loading   = {setConfirm2Loading}
+      cargarDatosEgresos   = {cargarDatosEgresos}
     />
 
     <Box

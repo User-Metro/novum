@@ -26,6 +26,13 @@ const obtenerValorHtml = (element: any) => {
   return valorHtml?.innerHTML;
 };
 
+const obtenerValorRadio = (input: any) => {
+  let valorRadio: null | HTMLInputElement = document.querySelector(
+    'input[name="' + input + '"]:checked'
+  )
+  return valorRadio?.value;
+};
+
 const asignarValorInput = (input: string, valor: string): void => {
   let element = document.querySelector(input) as HTMLInputElement;
   element.value = valor;
@@ -54,27 +61,27 @@ const convertirFecha = (fecha: string): string => {
   return fechaC;
 };
 
-const obtenerFecha = (fecha:string):string => {
-  return fecha.slice(0,10);
-}
+const obtenerFecha = (fecha: string): string => {
+  return fecha.slice(0, 10);
+};
 
-const agregarClase = (campo:string, clase:string):void => {
+const agregarClase = (campo: string, clase: string): void => {
   let element = document.querySelector(campo);
-  element?.classList.add('u-ocultar')
-}
+  element?.classList.add("u-ocultar");
+};
 
-const buscarPosicionArreglo = (arrray:Array<any>, id:number):number => {
+const buscarPosicionArreglo = (arrray: Array<any>, id: number): number => {
   let pos = 0;
-  for(let j=0; j < arrray.length; j++) {
-    if(arrray[j]['id'] === id)
-      pos = j;
+  for (let j = 0; j < arrray.length; j++) {
+    if (arrray[j]["id"] === id) pos = j;
   }
   return pos;
-}
+};
 
 export default {
   obtenerValor,
   obtenerValorText,
+  obtenerValorRadio,
   convertirModena,
   obtenerValorHtml,
   asignarValorInput,
