@@ -45,56 +45,6 @@ export const RowsCustom = ({
   cargarDatosEgresos:   Function;
 }) => {
 
-  const cambiarStatus = (id: number) => {
-    alert(id);
-  };
-
-  const eliminarIngreso = (id: string) => {
-    const scriptURL           = localStorage.getItem("site") + "/eliminarIngresoFuturo"; // deberia es
-    const ingresos_futuros_id = id;
-    const dataU               = { ingresos_futuros_id };
-
-    fetch(scriptURL, {
-      method: "POST",
-      body:   JSON.stringify(dataU),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((resp) => resp.json())
-      .then(function (info) {
-        fn.agregarClase("tr[idTr='" + id + "']", "u-ocultar");
-        //fn.ejecutarClick("#btnBuscar");
-      })
-      .catch((error) => {
-        alert(error.message);
-        console.error("Error!", error.message);
-      });
-  };
-
-  const eliminarEgreso = (id: string) => {
-    const scriptURL = localStorage.getItem('site')+"/eliminarEgresoFuturo"; // deberia es
-    const egresos_futuros_id = id;
-    const dataU = {egresos_futuros_id};
-
-    fetch(scriptURL, {
-       method: 'POST',
-       body: JSON.stringify(dataU),
-       headers:{
-         'Content-Type': 'application/json'
-       }
-     })
-    .then((resp) => resp.json())
-    .then(function(info) {
-      fn.agregarClase("tr[idTr='"+id+"']", "u-ocultar");
-      //fn.ejecutarClick("#btnBuscar");
-     })
-     .catch(error => {
-       alert(error.message);
-       console.error('Error!', error.message);
-     });
-  }
-
   return (
     <>
       {pullData
@@ -209,6 +159,7 @@ export const RowsCustom = ({
                     {data.state == "Cobrado" ? (
                       <ModalTB
                         ingreso             = {true}
+                        eliminar            = {false}
                         cobradoPagado       = {true}
                         id                  = {data.id}
                         date_created_o      = {data.date_created_o}
@@ -221,6 +172,7 @@ export const RowsCustom = ({
                     ) : (
                       <ModalTB
                         ingreso             = {true}
+                        eliminar            = {false}
                         cobradoPagado       = {false}
                         id                  = {data.id}
                         date_created_o      = {data.date_created_o}
@@ -238,6 +190,7 @@ export const RowsCustom = ({
                     {data.state == "Pagado" ? (
                       <ModalTB
                         ingreso             = {false}
+                        eliminar            = {false}
                         cobradoPagado       = {true}
                         id                  = {data.id}
                         date_created_o      = {data.date_created_o}
@@ -250,6 +203,7 @@ export const RowsCustom = ({
                     ) : (
                       <ModalTB
                         ingreso             = {false}
+                        eliminar            = {false}
                         cobradoPagado       = {false}
                         id                  = {data.id}
                         date_created_o      = {data.date_created_o}
@@ -290,21 +244,18 @@ export const RowsCustom = ({
                         rowId               = {data.id}
                         saveDataEgreso      = {false}
                       />
-                      <Popconfirm
-                        title       = "¿Desea eliminar este registro?"
-                        description = ""
-                        onConfirm   = {() => {
-                          eliminarIngreso(data.id);
-                        }}
-                        onCancel    = {cancel}
-                        okText      = "Si"
-                        cancelText  = "No"
-                      >
-                        <DeleteIcon
-                          className = "icoBorrar u-efecto slideRight"
-                          onClick   = {() => {}}
-                        />
-                      </Popconfirm>
+                      <ModalTB
+                        ingreso             = {true}
+                        eliminar            = {true}
+                        cobradoPagado       = {false}
+                        id                  = {data.id}
+                        date_created_o      = {data.date_created_o}
+                        cargarDatosIngresos = {cargarDatosIngresos}
+                        setListaDatos       = {setListaDatos}
+                        confirm2Loading     = {confirm2Loading}
+                        setConfirm2Loading  = {setConfirm2Loading}
+                        cargarDatosEgresos  = {cargarDatosEgresos}
+                      />
                     </div>
                   )
                   : (
@@ -322,21 +273,18 @@ export const RowsCustom = ({
                         rowId               = {data.id}
                         saveDataEgreso      = {true}
                       />
-                      <Popconfirm
-                        title       = "¿Desea eliminar este registro?"
-                        description = ""
-                        onConfirm   = {() => {
-                          eliminarEgreso(data.id);
-                        }}
-                        onCancel    = {cancel}
-                        okText      = "Si"
-                        cancelText  = "No"
-                      >
-                        <DeleteIcon
-                          className = "icoBorrar u-efecto slideRight"
-                          onClick   = {() => {}}
-                        />
-                      </Popconfirm>
+                      <ModalTB
+                        ingreso             = {false}
+                        eliminar            = {true}
+                        cobradoPagado       = {false}
+                        id                  = {data.id}
+                        date_created_o      = {data.date_created_o}
+                        cargarDatosIngresos = {cargarDatosIngresos}
+                        setListaDatos       = {setListaDatos}
+                        confirm2Loading     = {confirm2Loading}
+                        setConfirm2Loading  = {setConfirm2Loading}
+                        cargarDatosEgresos  = {cargarDatosEgresos}
+                      />
                     </div>
                   )
                 }

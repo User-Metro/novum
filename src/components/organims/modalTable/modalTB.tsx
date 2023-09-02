@@ -5,15 +5,17 @@ import Style  from '../../../pages/registroEgreso/egreso.module.scss';
 import Chip from '@mui/material/Chip';
 import { Modal, message, Input, DatePicker } from "antd";
 import type { DatePickerProps } from "antd";
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import dayjs, { Dayjs } from 'dayjs';
 import fn from "../../../utility";
 import type { RangePickerProps } from 'antd/es/date-picker';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 let fecha_creacion_o_m: string;
 
 export const ModalTB = ({
   ingreso,
+  eliminar,
   cobradoPagado,
   id,
   date_created_o,
@@ -24,6 +26,7 @@ export const ModalTB = ({
   cargarDatosEgresos,
 }:{
   ingreso:              boolean;
+  eliminar:             boolean;
   cobradoPagado:        boolean;
   id:                   string;
   date_created_o:       any;
@@ -192,6 +195,67 @@ export const ModalTB = ({
     },500);
   };
 
+  /*##################################*/
+
+  const showModalE = (id: string) => {
+    setModal3Open(true);
+    setTimeout(()=>{
+      setIdIngresoStatus(id);
+    },500);
+  };
+
+  const eliminarIngreso = (id: any) => {
+    const scriptURL           = localStorage.getItem("site") + "/eliminarIngresoFuturo"; // deberia es
+    const ingresos_futuros_id = idIngresoStatus;
+    const dataU               = { ingresos_futuros_id };
+
+    setConfirm3Loading(true);
+
+    fetch(scriptURL, {
+      method: "POST",
+      body:   JSON.stringify(dataU),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((resp) => resp.json())
+      .then(function (info) {
+        fn.ejecutarClick("#btnBuscar");
+        setModal3Open(false);
+        setConfirm3Loading(false);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        console.error('Error!', error.message);
+      });
+  };
+
+  const eliminarEgreso = (id: any) => {
+    const scriptURL = localStorage.getItem('site')+"/eliminarEgresoFuturo"; // deberia es
+    const egresos_futuros_id = idEgresoStatus;
+    const dataU = {egresos_futuros_id};
+
+    setConfirm3Loading(true);
+
+    fetch(scriptURL, {
+       method: 'POST',
+       body: JSON.stringify(dataU),
+       headers:{
+         'Content-Type': 'application/json'
+       }
+     })
+    .then((resp) => resp.json())
+    .then(function(info) {
+      fn.ejecutarClick("#btnBuscar");
+      setModal3Open(false);
+      setConfirm3Loading(false);
+     })
+     .catch(error => {
+      console.log(error.message);
+      console.error('Error!', error.message);
+     });
+  }
+
   const disabledDate: RangePickerProps['disabledDate'] = (current: any) => {
     return current && current > dayjs().endOf('day');
   };
@@ -206,53 +270,55 @@ export const ModalTB = ({
   return(
     <Box>
       {
-        ingreso
-        ? cobradoPagado
-            ? (
-              <Chip
-                icon        = {<span className="icon-icoCobrar"></span>}
-                size        = "small"
-                label       = "Cobrado"
-                className   = {Styles.chipTable}
-                onClick     = {() => {
-                  showModalC( id, 2, date_created_o )
-                }}
-              />
-            )
-            : (
-              <Chip
-                icon      = {<span className="icon-icoCobrarDismiss"></span>}
-                label     = "No cobrado"
-                size      = "small"
-                className = {Styles.chipTableNo}
-                onClick   = {() => {
-                  showModalC( id, 1, date_created_o );
-                }}
-              />
-            )
-        : cobradoPagado 
-            ? (
-              <Chip
-                icon={<span className="icon-icoCobrar"></span>}
-                size="small"
-                label="Pagado"
-                className={Style.chipTable}
-                onClick     = {() => {
-                  showModalP( id, 2, date_created_o )
-                }}
-              />
-            )
-            : (
-              <Chip
-                icon={<span className="icon-icoCobrarDismiss"></span>}
-                label="No pagado"
-                size="small"
-                className={Style.chipTableNo}
-                onClick     = {() => {
-                  showModalP( id, 1, date_created_o )
-                }}
-              />
-            )
+        eliminar
+          ? <DeleteIcon className="icoBorrar u-efecto slideRight" onClick={()=>{showModalE(id)}}/>
+          : ingreso
+            ? cobradoPagado
+              ? (
+                <Chip
+                  icon        = {<span className="icon-icoCobrar"></span>}
+                  size        = "small"
+                  label       = "Cobrado"
+                  className   = {Styles.chipTable}
+                  onClick     = {() => {
+                    showModalC( id, 2, date_created_o )
+                  }}
+                />
+              )
+              : (
+                <Chip
+                  icon      = {<span className="icon-icoCobrarDismiss"></span>}
+                  label     = "No cobrado"
+                  size      = "small"
+                  className = {Styles.chipTableNo}
+                  onClick   = {() => {
+                    showModalC( id, 1, date_created_o );
+                  }}
+                />
+              )
+            : cobradoPagado 
+              ? (
+                <Chip
+                  icon={<span className="icon-icoCobrar"></span>}
+                  size="small"
+                  label="Pagado"
+                  className={Style.chipTable}
+                  onClick     = {() => {
+                    showModalP( id, 2, date_created_o )
+                  }}
+                />
+              )
+              : (
+                <Chip
+                  icon={<span className="icon-icoCobrarDismiss"></span>}
+                  label="No pagado"
+                  size="small"
+                  className={Style.chipTableNo}
+                  onClick     = {() => {
+                    showModalP( id, 1, date_created_o )
+                  }}
+                />
+              )
       }
 
       <Modal
@@ -400,6 +466,34 @@ export const ModalTB = ({
                   )
                   : null
           }
+        </form>
+      </Modal>
+
+      <Modal
+        width={340}
+        title=""
+        centered
+        open={modal3Open}
+        onOk={ingreso ? eliminarIngreso : eliminarEgreso}
+        onCancel={() => setModal3Open(false)}
+        okText={"Eliminar"}
+        cancelText="Cancelar"
+        className={`${Styles.ModalCobrar} u-textCenter`}
+        confirmLoading={confirm3Loading}
+      >
+        <form
+          className={Styles.ModalForm}
+          name="formEliminar"
+          id="formEliminar"
+          method="post"
+        >
+          {
+            ingreso
+              ? <input type="hidden" name="idIngresoFuturoE" id="idIngresoFuturoE" value={idIngresoStatus} />
+              : <input type="hidden" name="idEgresoFuturoE" id="idEgresoFuturoE" value={idEgresoStatus} />
+          }
+          
+          <p><strong>¿Desea eliminar este registro de cobro?</strong></p>
         </form>
       </Modal>
 
