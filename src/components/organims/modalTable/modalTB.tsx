@@ -1,15 +1,15 @@
-import Box from '@mui/material/Box';
-import Scss from './modalTB.module.scss';
-import Styles from "../../../pages/registroIngreso/ingresos.module.scss";
-import Style  from '../../../pages/registroEgreso/egreso.module.scss';
-import Chip from '@mui/material/Chip';
-import { Modal, message, Input, DatePicker } from "antd";
-import type { DatePickerProps } from "antd";
-import { useState, useEffect, SetStateAction } from "react";
-import dayjs, { Dayjs } from 'dayjs';
-import fn from "../../../utility";
-import type { RangePickerProps } from 'antd/es/date-picker';
-import DeleteIcon from '@mui/icons-material/Delete';
+import Box                        from '@mui/material/Box';
+import Scss                       from './modalTB.module.scss';
+import Styles                     from "../../../pages/registroIngreso/ingresos.module.scss";
+import Style                      from '../../../pages/registroEgreso/egreso.module.scss';
+import Chip                       from '@mui/material/Chip';
+import { Modal, DatePicker }      from "antd";
+import type { DatePickerProps }   from "antd";
+import { useState }               from "react";
+import dayjs                      from 'dayjs';
+import fn                         from "../../../utility";
+import type { RangePickerProps }  from 'antd/es/date-picker';
+import DeleteIcon                 from '@mui/icons-material/Delete';
 
 let fecha_creacion_o_m: string;
 
@@ -201,6 +201,7 @@ export const ModalTB = ({
     setModal3Open(true);
     setTimeout(()=>{
       setIdIngresoStatus(id);
+      setIdEgresoStatus(id);
     },500);
   };
 
@@ -210,7 +211,6 @@ export const ModalTB = ({
     const dataU               = { ingresos_futuros_id };
 
     setConfirm3Loading(true);
-
     fetch(scriptURL, {
       method: "POST",
       body:   JSON.stringify(dataU),
@@ -230,16 +230,16 @@ export const ModalTB = ({
       });
   };
 
-  const eliminarEgreso = (id: any) => {
-    const scriptURL = localStorage.getItem('site')+"/eliminarEgresoFuturo"; // deberia es
-    const egresos_futuros_id = idEgresoStatus;
-    const dataU = {egresos_futuros_id};
+  const eliminarEgreso = () => {
+    const scriptURL           = localStorage.getItem('site')+"/eliminarEgresoFuturo";
+    const egresos_futuros_id  = idEgresoStatus;
+    const dataU               = {egresos_futuros_id};
 
     setConfirm3Loading(true);
 
     fetch(scriptURL, {
-       method: 'POST',
-       body: JSON.stringify(dataU),
+       method:  'POST',
+       body:    JSON.stringify(dataU),
        headers:{
          'Content-Type': 'application/json'
        }
@@ -299,10 +299,10 @@ export const ModalTB = ({
             : cobradoPagado 
               ? (
                 <Chip
-                  icon={<span className="icon-icoCobrar"></span>}
-                  size="small"
-                  label="Pagado"
-                  className={Style.chipTable}
+                  icon        = {<span className="icon-icoCobrar"></span>}
+                  size        = "small"
+                  label       = "Pagado"
+                  className   = {Style.chipTable}
                   onClick     = {() => {
                     showModalP( id, 2, date_created_o )
                   }}
@@ -310,10 +310,10 @@ export const ModalTB = ({
               )
               : (
                 <Chip
-                  icon={<span className="icon-icoCobrarDismiss"></span>}
-                  label="No pagado"
-                  size="small"
-                  className={Style.chipTableNo}
+                  icon        = {<span className="icon-icoCobrarDismiss"></span>}
+                  label       = "No pagado"
+                  size        = "small"
+                  className   = {Style.chipTableNo}
                   onClick     = {() => {
                     showModalP( id, 1, date_created_o )
                   }}

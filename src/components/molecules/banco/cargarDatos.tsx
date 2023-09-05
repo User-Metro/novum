@@ -24,7 +24,7 @@ export const CargaDatos = ({listDatos}: {
       paddingBottom: "50px"
     }}>
       <div>
-        {
+        {/*
           listDatos.map((data: { id: React.Key | null | undefined; nombre: string; tipo: string; cantidad: number; }) => (
           <DataBank
             key={data.id}
@@ -33,18 +33,18 @@ export const CargaDatos = ({listDatos}: {
             cantidad={data.cantidad}
           />
         ))
-      }
+          */}
       </div>
 
       <div>
-        {datas.map((task) => (
+        {/*datas.map((task) => (
           <DataBank
             key={task.id}
             nombre={task.nombre}
             tipo={task.tipo}
             cantidad={task.cantidad}
           />
-        ))}
+        ))*/}
       </div>
     </Box>
   );

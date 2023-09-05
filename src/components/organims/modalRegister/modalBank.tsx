@@ -9,6 +9,8 @@ import { Modal, message, Input, DatePicker }  from "antd";
 import { useState }                           from "react";
 import * as Yup                               from "yup";
 import fn                                     from "../../../utility";
+import IconButton                             from "@mui/material/IconButton";
+import EditOutlinedIcon                       from "@mui/icons-material/EditOutlined";
 
 const user_id = localStorage.getItem("user_id");
 
@@ -24,6 +26,8 @@ export const ModalBank = ({
   arrayData,
   rowId,
   saveDataEgreso,
+  editBank,
+  setListaDatos,
 }: {
   namePerson:           boolean;
   fechaPago:            boolean;
@@ -36,11 +40,12 @@ export const ModalBank = ({
   arrayData:            any;
   rowId:                any;
   saveDataEgreso:       boolean;
+  editBank:             boolean;
+  setListaDatos:        any;
 }) => {
   const [open,            setOpen]              = useState(false);
   const [confirmLoading,  setConfirmLoading]    = useState(false);
   const [messageApi,      contextHolder]        = message.useMessage();
-  const [listaDatos,      setListaDatos]        = useState([]);
   const [cargandoModal,   setcargandoModal]     = useState(false);
   const [value,           setValue]             = useState<any>();
 
@@ -97,24 +102,22 @@ export const ModalBank = ({
     fn.ejecutarClick("#txtAceptar");
   };
 
-  const cargaDatosEdicion = () => {
+  const editarBank = (id: any) => {
+    showModal();
+    const pos = fn.buscarPosicionArreglo(arrayData, id);
+    console.log(arrayData)
     setTimeout(() => {
-      if (fn.obtenerValor("#hdId")) {
-        const id_cb     = fn.obtenerValor("#hdId");
-        const cuenta    = fn.obtenerValorHtml("#spName"       + id_cb);
-        const cantidad  = fn.obtenerValorHtml("#spCantidadO"  + id_cb);
-        const id_tipo   = fn.obtenerValorHtml("#spTipoO"      + id_cb);
-        setInitialValuesCaja({
-          hdId:               id_cb,
-          txtNombre:          cuenta,
-          stTipo:             id_tipo,
-          txtCantidadActual:  cantidad,
-        });
-      }
-      setTimeout(() => {
-        setcargandoModal(false);
-      }, 300);
-    }, 800);
+      setInitialValue({
+        hdId:                   id,
+        txtNombre:              arrayData[pos]["Nombre"],
+        txtConcepto:            "",
+        stTipo:                 arrayData[pos]["id_tipo"],
+        txtCantidadActual:      arrayData[pos]["Monto"],
+        stCategoria:            "",
+        txtMonto:               "",
+        txtFechaTentativaCobro: "",
+      });
+    }, 100);
   };
 
   const editar = (id: any) => {
@@ -140,27 +143,38 @@ export const ModalBank = ({
     <Box>
       <Box className={Styles.itemButton}>
         {
-          edit
-          ?(<EditIcon
-              className="u-efecto slideRight"
-              onClick={() => {
-                editar(rowId);
-              }}
-            />
-          )
-          :(
-            <Button
-              variant   = "contained"
-              color     = "success"
-              startIcon = {<AddIcon />}
-              classes={{
-                root: Styles.btnCreateAccount,
-              }}
-              onClick={showModal}
-            >
-              {text}
-            </Button>
-          )
+          editBank
+            ?(
+              <IconButton type="button" aria-label="Edit">
+                <EditOutlinedIcon 
+                  onClick={() => {
+                    editarBank(rowId);
+                  }}
+                />
+              </IconButton>
+            )
+            : edit
+              ?(<EditIcon
+                  className="u-efecto slideRight"
+                  onClick={() => {
+                    editar(rowId);
+                  }}
+                />
+              )
+              :(
+                <Button
+                  variant   = "contained"
+                  color     = "success"
+                  startIcon = {<AddIcon />}
+                  classes={{
+                    root: Styles.btnCreateAccount,
+                  }}
+                  onClick={showModal}
+                >
+                  {text}
+                </Button>
+              )
+          
         }
       </Box>
 
@@ -172,7 +186,6 @@ export const ModalBank = ({
         onCancel        = {handleCancel}
         okText          = "Guardar"
         cancelText      = "Cancelar"
-        afterOpenChange = {cargaDatosEdicion}
       >
         <Formik
           enableReinitialize  = {true}
@@ -300,12 +313,6 @@ export const ModalBank = ({
                         setConfirmLoading
                       );
                       setValue('');
-                      
-                      setTimeout(() => {
-                        setOpen(false);
-                        setConfirmLoading(false);
-                        cargarDatos(false);
-                      }, 1200);
                     })
                     .catch((error) => {
                       console.log(error.message);
@@ -313,11 +320,10 @@ export const ModalBank = ({
                     });
                 }
               : (values, actions) => {
-                  let scriptURL = localStorage.getItem("site") + "/altaCajaBanco";
-
-                  if (values.hdId) {
-                    scriptURL   = localStorage.getItem("site") + "/editarCajaBanco";
-                  }
+                  let scriptURL = 
+                    edit 
+                    ? localStorage.getItem("site") + "/editarCajaBanco"
+                    : localStorage.getItem("site") + "/altaCajaBanco"
 
                   const txtNombre         = values.txtNombre;
                   const stTipo            = values.stTipo;
@@ -333,7 +339,6 @@ export const ModalBank = ({
                   };
 
                   setConfirmLoading(true);
-
                   fetch(scriptURL, {
                     method: "POST",
                     body:   JSON.stringify(dataU),
@@ -341,25 +346,22 @@ export const ModalBank = ({
                       "Content-Type": "application/json",
                     },
                   })
-                    .then((resp) => resp.json())
-                    .then(function (dataR) {
+                    .then((response) => {
                       messageApi.open({
                         type:     "success",
                         content:  "Los datos fueron guardados con éxito",
                       });
+                      console.log("Si caja");
 
-                      setInitialValuesCaja({
-                        hdId:               "",
-                        txtNombre:          "",
-                        stTipo:             "0",
-                        txtCantidadActual:  "",
-                      });
-
-                      setTimeout(() => {
-                        setOpen(false);
-                        setConfirmLoading(false);
-                        cargarDatos(false);
-                      }, 1200);
+                      cargarDatos(
+                        false,
+                        setListaDatos,
+                        true,
+                        setInitialValuesCaja,
+                        setOpen,
+                        setConfirmLoading
+                      );
+                      setValue('');
                     })
                     .catch((error) => {
                       console.log(error.message);
@@ -480,23 +482,6 @@ export const ModalBank = ({
                         onChange    = {handleChange}
                         onBlur      = {handleBlur}
                       />
-
-                      {/*
-                          <DatePicker
-                            // format={dateFormatList}
-                            className={Styles.ModalCantidad}
-                            id="txtFechaTentativaCobro"
-                            name="txtFechaTentativaCobro"
-                            placeholder={
-                              fechaPago
-                                ? "Fecha tentativa de pago"
-                                : "Fecha tentativa de cobro"
-                            }
-                            //value={values.txtFechaTentativaCobro}
-                            onChange={onChange}
-                            onBlur={handleBlur}
-                          />
-                        */}
 
                       <input 
                         type      = "date" 

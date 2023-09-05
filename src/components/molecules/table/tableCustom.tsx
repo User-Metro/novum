@@ -25,7 +25,7 @@ export const TableCustom = ({
   setInitialValues:     Function;
   ingreso:              boolean;
   cargarDatosIngresos:  Function;
-  setListaDatos:        Function;
+  setListaDatos:        any;
   confirm2Loading:      any;
   setConfirm2Loading:   Function;
   cargarDatosEgresos:   Function;

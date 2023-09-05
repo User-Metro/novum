@@ -4,7 +4,6 @@ import CircularProgress         from "@mui/material/CircularProgress";
 import { useState }             from "react";
 import fn                       from "../../utility";
 import fng                      from "../../components/atoms/egresos/funciones";
-import { message }              from "antd";
 import dayjs                    from "dayjs";
 import { TableCustom }          from "../../components/molecules/table/tableCustom";
 import { ModalBank }            from '../../components/organims/modalRegister'
@@ -115,17 +114,10 @@ if (user_id !== "" && user_id !== null) {
 }
 
 export const Egresos = () =>{
-
-const [open,            setOpen]              = useState(false);
-const [confirmLoading,  setConfirmLoading]    = useState(false);
 const [confirm2Loading, setConfirm2Loading]   = useState(false);
-const [messageApi,      contextHolder]        = message.useMessage();
 const [cargandoVisible, setCargandoVisible]   = useState(true);
 const [listaDatos,      setListaDatos]        = useState([]);
 const [cantidadV,       setCantidadV]         = useState<number>(0);
-const [modal2Open,      setModal2Open]        = useState(false);
-const [idIngresoStatus, setIdIngresoStatus]   = useState("0");
-const [cobrado,         setCobrado]           = useState(false);
 const [stMetodo,        setStMetodo]          = useState(0);
 const [stEstado,        setStEstado]          = useState(0);
 
@@ -142,9 +134,6 @@ const [initialValues, setInitialValues] = useState({
 let idSI = setInterval(() => {
   if (!data) console.log("Vacio");
   else {
-    //console.log         ("amskjak");
-    //console.log         (data);
-    //console.log         ("Ja " + data.length);
     setCantidadV        (data.length);
     setListaDatos       (data);
     setCargandoVisible  (false);
@@ -195,6 +184,8 @@ return(
           arrayData           = {null}
           rowId               = {null}
           saveDataEgreso      = {true}
+          editBank            = {false}
+          setListaDatos       = {setListaDatos}
         />
       </Box>
     </Box>

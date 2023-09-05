@@ -1,19 +1,11 @@
 import * as React                 from "react";
 import Styles                     from "../../../pages/registroIngreso/ingresos.module.scss";
-import Style                      from '../../../pages/registroEgreso/egreso.module.scss';
-import fn                         from "../../../utility";
 import TableCell                  from "@mui/material/TableCell";
 import TableRow                   from "@mui/material/TableRow";
 import PaymentOutlinedIcon        from "@mui/icons-material/PaymentOutlined";
 import RequestQuoteOutlinedIcon   from "@mui/icons-material/RequestQuoteOutlined";
-import DeleteIcon                 from "@mui/icons-material/Delete";
-import { message, Popconfirm }    from "antd";
 import { ModalBank }              from '../../organims/modalRegister';
 import { ModalTB }                from '../../organims/modalTable';
-
-const cancel = () => {
-  message.error("Click on No");
-};
 
 const formatNumber = (number: number) =>
   new Intl.NumberFormat("en-US", {
@@ -39,7 +31,7 @@ export const RowsCustom = ({
   setInitialValues:     Function;
   status:               boolean;
   cargarDatosIngresos:  Function;
-  setListaDatos:        Function;
+  setListaDatos:        any;
   confirm2Loading:      any;
   setConfirm2Loading:   Function;
   cargarDatosEgresos:   Function;
@@ -238,11 +230,13 @@ export const RowsCustom = ({
                         txtConcept          = {true}
                         fechaPago           = {true}
                         text                = {''}
-                        cargarDatos         = {() => {}}
+                        cargarDatos         = {cargarDatosIngresos}
                         edit                = {true}
                         arrayData           = {pullData}
                         rowId               = {data.id}
                         saveDataEgreso      = {false}
+                        editBank            = {false}
+                        setListaDatos       = {setListaDatos}
                       />
                       <ModalTB
                         ingreso             = {true}
@@ -267,11 +261,13 @@ export const RowsCustom = ({
                         txtConcept          = {true}
                         fechaPago           = {true}
                         text                = {''}
-                        cargarDatos         = {() => {}}
+                        cargarDatos         = {cargarDatosEgresos}
                         edit                = {true}
                         arrayData           = {pullData}
                         rowId               = {data.id}
                         saveDataEgreso      = {true}
+                        editBank            = {false}
+                        setListaDatos       = {setListaDatos}
                       />
                       <ModalTB
                         ingreso             = {false}

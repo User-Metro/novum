@@ -4,7 +4,6 @@ import CircularProgress         from "@mui/material/CircularProgress";
 import { useState }             from "react";
 import fn                       from "../../utility";
 import fng                      from "../../components/atoms/ingresos/funciones";
-import dayjs, { Dayjs } from 'dayjs';
 import * as XLSX                from 'xlsx';
 import { TableCustom }          from "../../components/molecules/table/tableCustom";
 import { ModalBank }            from '../../components/organims/modalRegister'
@@ -88,22 +87,21 @@ async function cargarDatosIngresos(
         setListaDatos(data);
       }
 
-      if (ejecutarSetInitialValues) {
-        setInitialValuesTabla({
-          hdId:         "",
-          txtNombre:    "",
-          txtConcepto:  "",
-          stTipo:       "0",
-          stCategoria:  "",
-          txtMonto:     "",
-          txtFechaTentativaCobro: ''
-        });
-        setTimeout(() => {
-          setListaDatos(data);
-          setOpen(false);
-          setConfirmLoading(false);
-        }, 1000);
-      }
+      setInitialValuesTabla({
+        hdId:         "",
+        txtNombre:    "",
+        txtConcepto:  "",
+        stTipo:       "0",
+        stCategoria:  "",
+        txtMonto:     "",
+        txtFechaTentativaCobro: ''
+      });
+      setTimeout(() => {
+        setListaDatos(data);
+        setOpen(false);
+        setConfirmLoading(false);
+      }, 1000);
+      
     })
     .catch((error) => {
       console.log(error.message);
@@ -190,6 +188,8 @@ return (
           arrayData           = {null}
           rowId               = {null}
           saveDataEgreso      = {false}
+          editBank            = {false}
+          setListaDatos       = {setListaDatos}
         />
       </Box>
     </Box>
