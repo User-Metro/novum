@@ -73,9 +73,56 @@
   padding: 5px 14px !important;
 }
 
+.btnIcon{
+  display: none;
+}
+
 @media all and (max-width: 717px){
   .itemButton{
     position: absolute;
     right: 30px;
   }
+}
+
+@media all and (max-width: 1107px){
+  .itemButton2{
+    position: absolute;
+    right: 20px;
+  }
+}
+
+@media all and (max-width: 720px){
+  .itemButton2{
+    position: fixed;
+    right: 10px;
+    bottom: 40px;
+  }
+
+  .btnText{
+    display: none;
+  }
+
+  .btnIcon{
+    display: block;
+    background: $main-color;
+    border-radius: 25px;
+    height: 50px;
+    width: 50px;
+    
+    svg{
+      color: white;
+      margin-top: 12px;
+      margin: 13px 0px 0px -11px;
+      position: absolute;
+      cursor: pointer;
+    }
+  }
+  
+}
+
+@media all and (max-width: 400px){
+  .btnIcon{
+   margin-right: 28px;
+  }
+  
 }

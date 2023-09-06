@@ -11,6 +11,7 @@ import * as Yup                               from "yup";
 import fn                                     from "../../../utility";
 import IconButton                             from "@mui/material/IconButton";
 import EditOutlinedIcon                       from "@mui/icons-material/EditOutlined";
+import Icon                                   from '@mui/material/Icon';
 
 const user_id = localStorage.getItem("user_id");
 
@@ -155,24 +156,36 @@ export const ModalBank = ({
             )
             : edit
               ?(<EditIcon
-                  className="u-efecto slideRight"
                   onClick={() => {
                     editar(rowId);
                   }}
                 />
               )
               :(
-                <Button
-                  variant   = "contained"
-                  color     = "success"
-                  startIcon = {<AddIcon />}
-                  classes={{
-                    root: Styles.btnCreateAccount,
-                  }}
-                  onClick={showModal}
-                >
-                  {text}
-                </Button>
+                <Box className={Styles.itemButton2}>
+                  <Box className={Styles.btnText}>
+                    <Button
+                      variant   = "contained"
+                      color     = "success"
+                      startIcon = {<AddIcon />}
+                      classes={{
+                        root: Styles.btnCreateAccount,
+                      }}
+                      onClick={showModal}
+                    >
+                      {text}
+                    </Button>
+                  </Box>
+
+                  <Box className={Styles.btnIcon}>
+                    <Icon 
+                      color = "success"
+                      onClick={showModal}
+                    >
+                      <AddIcon />
+                    </Icon>
+                  </Box>
+                </Box>
               )
           
         }

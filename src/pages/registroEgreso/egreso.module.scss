@@ -28,8 +28,6 @@
   font-weight: bold !important;
 }
 
-
-
 .typeAmount2{
   display: flex;
   align-items: center;
@@ -169,42 +167,14 @@
   width: 15%;
 }
 
-@media all and (min-width: 718px){
- .itemSearch{
-    width: 400px;
-  }
-
-  .resultResponsive{
-    display: none;
+@media all and (max-width: 1150px){
+  .divTable{
+    margin-top: 30px;
   }
 }
 
 @media all and (max-width: 717px){
   .divTable{
     display: none;
-  }
-
-  .nav{
-    flex-direction: column; 
-  }
-
-  .counter{
-    order: 1;
-  }
-
-  .itemSearch{
-    order: 3;
-    width: 100%;
-  }
-
-  .itemButton{
-    order: 2;
-    align-self: end;
-    margin-top: -32px;
-    margin-bottom: 8px;
-  }
-
-  .resultResponsive{
-    display: block;
   }
 }

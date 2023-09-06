@@ -9,7 +9,7 @@ import { TableCustom }          from "../../components/molecules/table/tableCust
 import { ModalBank }            from '../../components/organims/modalRegister'
 import { NavBar }               from '../../components/organims/navBar';
 import * as XLSX                from 'xlsx';
-//import { IngresoResponsive } from './IngresoResponsive.tsx';
+import { ResponsiveDesing }     from '../../components/molecules/responsive';
 
 interface IData {
   Nombre:                 string;
@@ -200,6 +200,8 @@ return(
       setConfirm2Loading   = {setConfirm2Loading}
       cargarDatosEgresos   = {cargarDatosEgresos}
     />
+
+    <ResponsiveDesing listaDatos = {listaDatos} ingreso = {false}/>
 
     <Box
       className = {cargandoVisible ? "u-textCenter" : "u-textCenter u-ocultar"}

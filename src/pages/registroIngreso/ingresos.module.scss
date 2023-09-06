@@ -157,29 +157,14 @@
   width:      15%;
 }
 
-@media all and (min-width: 718px){
-  .resultResponsive{
-    display: none;
+@media all and (max-width: 1150px){
+  .divTable{
+    margin-top: 30px;
   }
 }
 
 @media all and (max-width: 717px){
   .divTable{
     display: none;
-  }
-
-  .nav{
-    flex-direction: column; 
-  }
-
-  .itemButton{
-    order:          4;
-    align-self:     end;
-    margin-top:     -32px;
-    margin-bottom:  8px;
-  }
-
-  .resultResponsive{
-    display: block;
   }
 }

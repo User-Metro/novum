@@ -8,7 +8,7 @@ import * as XLSX                from 'xlsx';
 import { TableCustom }          from "../../components/molecules/table/tableCustom";
 import { ModalBank }            from '../../components/organims/modalRegister'
 import { NavBar }               from '../../components/organims/navBar';
-//import { IngresoResponsive } from './IngresoResponsive.tsx';
+import { ResponsiveDesing }     from '../../components/molecules/responsive';
 
 interface IData {
   Nombre:                 string;
@@ -205,6 +205,8 @@ return (
       cargarDatosEgresos  = {()=>{}}
     />
 
+    <ResponsiveDesing listaDatos = {listaDatos} ingreso = {true}/>
+   
     <Box
       className = {cargandoVisible ? "u-textCenter" : "u-textCenter u-ocultar"}
     >
@@ -213,32 +215,3 @@ return (
   </Box>
 );
 };
-
-{
-/*
-    <Box>
-      {listaDatos.map((data) => (
-        <IngresoResponsive
-          key={data.id}
-          date_created={data.date_created}
-          payment_method={data.payment_method}
-          category={data.category}
-          name={data.name}
-          concept={data.concept}
-          amount={data.amount}
-          date_to_pay={data.date_to_pay}
-          state={data.state}
-          date_cashed={data.date_cashed}
-        />
-      ))}
-      </Box>
-
-        <TableCustom
-      arrays={listaDatos}
-      showModal={showModal}
-      setInitialValues={setInitialValues}
-      setModal2Open={setModal2Open}
-    />
-*/
-}
-
