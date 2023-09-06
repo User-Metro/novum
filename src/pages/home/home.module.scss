@@ -1,0 +1,176 @@
+@import "../../sass/variables";
+
+.HomeHeader {
+  padding-top: 5px;
+}
+
+.HomeLogo {
+  display: inline-block;
+  font-size: 34px;
+  padding-top: 6px;
+  margin-top: 2px;
+  margin-bottom: 16px;
+}
+
+.HomeUser {
+  width: 36px !important;
+  height: 36px !important;
+  font-size: 14px !important;
+  font-weight: 700;
+  background: url(../../image/bgUser.png) no-repeat;
+  background-size: cover;
+  margin-top: 4px;
+  margin-right: 22px
+}
+
+.HomeBienvenida {
+  width: 355px;
+  color: #8C8C8C;
+  font-size: 18.3px;
+  line-height: 22px;
+  font-weight: 400;
+  margin-top: 174px;
+}
+
+.HomeTitle {
+  color: #000000;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 30px;
+  margin-bottom: 10px;
+}
+
+.HomeIcoBienvenida {
+  display: inline-block;
+  margin-bottom: 16px;
+  vertical-align: top;
+}
+
+.HomeIcoBienvenida:before {
+  color: #8C8C8C;
+  font-size: 55.798px;
+}
+
+.mobile{
+  background: white !important;
+  box-shadow: none !important;
+}
+
+.mobile  div{
+  display: flex;
+  justify-content: space-between;
+}
+
+.ant-menu-light .ant-menu-item-selected:active{
+  background: black !important;
+  color: rebeccapurple;
+}
+
+.icoMenu {
+  height: 40px !important;
+  margin-top: 8px !important;
+}
+
+.btnHome{
+  background-color: $main-color;
+  font-size: 11px;
+  font-weight: 600;
+  margin-left: 0;
+  margin-top: 22px;
+  padding: 0 14px;
+  top: 0;
+}
+
+
+.TablaResumen {
+  padding-top: 60px;
+}
+
+.TitleColResumen {
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+
+.TablaResumen table {
+  background: #D9FFE2;
+}
+
+.TablaResumen table tr td{
+  border-bottom: 1px solid #fff !important;
+}
+
+.TablaResumen table tr, .TablaResumen table tr td {
+  -webkit-transition: all 300ms ease-out;
+  -moz-transition: all 300ms ease-out;
+  -ms-transition: all 300ms ease-out;
+  -o-transition: all 300ms ease-out;
+  transition: all 300ms ease-out;
+}
+
+.TablaResumen table tr:hover, .TablaResumen table tr:hover td {
+  color: #fff !important;
+  background-color: #00C62F !important;
+  -webkit-transition: all 300ms ease-out;
+  -moz-transition: all 300ms ease-out;
+  -ms-transition: all 300ms ease-out;
+  -o-transition: all 300ms ease-out;
+  transition: all 300ms ease-out;
+}
+
+/*
+.ModalForm input {
+  font: 14px 'Readex Pro', sans-serif;
+  margin-bottom: 6px;
+  box-sizing: border-box;
+  padding: 4px 11px;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  transition: all 0.2s; 
+}
+
+.ModalFormText {
+  width: 100%;
+  height: 26px;
+  font: 14px 'Readex Pro', sans-serif;
+  box-sizing: border-box;
+  padding: 4px 11px;
+  color: rgba(0, 0, 0, 0.88);
+  line-height: 1.5714285714285714;
+  background: #ffffff;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.ModalSelect {
+  width: 232px;
+  height: 32px;
+  color: #000000;
+  padding-left: 8px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  margin-right: 8px;
+}
+
+.ModalCantidad {
+  width: 232px;
+  height: 33px;
+  color: #000000;
+}
+
+.ModalCantidadMr {
+  margin-right: 8px !important;
+}
+
+.ModalCantidad input {
+  height: 10px !important;
+  padding-top: 6px !important;
+}
+*/

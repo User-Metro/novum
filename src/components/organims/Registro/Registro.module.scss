@@ -1,0 +1,32 @@
+@import "../../../sass/variables";
+
+.RegistroForm {
+  margin-top: 12px;
+}
+
+.RegistroForm input {
+  height: 26px;
+  margin-bottom: 12px;
+}
+
+.RegistroInputCol {
+  width: 202px;
+  margin-right: 10px;
+}
+
+
+.RegistroBtnSiguiente {
+  height: 32px !important;
+  color: $default-color;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 500;
+  background: $main-color;
+  border: 0px;
+  margin-bottom: 0px !important;
+  padding: 0px 11px;
+  margin-top: -8px;
+  cursor: pointer;
+  background: $main-color;
+}
+

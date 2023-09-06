@@ -1,0 +1,196 @@
+.nav{
+  display:          flex;
+  justify-content:  space-between;
+  margin:           15px 15px 20px 15px;
+  align-items:      baseline;
+  width:            100%;
+}
+
+.btnCreateAccount{
+  font-size:      11px !important;
+  font-weight:    600 !important;
+  padding:        5px 14px !important;
+  background:     #00C62F !important;
+  border-radius:  10px !important;
+  text-transform: full-size-kana !important;
+}
+
+.counter{
+  display:  flex;
+  gap:      10px;
+}
+
+.counter p{
+  font-weight: bold;
+}
+
+.chip{
+  display:          flex;
+  background:       #00C62F;
+  color:            white;
+  font-weight:      bold;
+  border-radius:    25px;
+  height:           30px;
+  width:            30px;
+  align-items:      center;
+  justify-content:  center;
+  margin-top:       -6px;
+}
+
+.LblFilter {
+  display:        inline-block;
+  padding-right:  8px;
+  padding-left:   3px;
+  margin-top:     -7px;
+}
+
+.ModalSelect {
+  width:          232px;
+  height:         32px;
+  color:          #000000;
+  padding-left:   8px;
+  border:         1px solid #d9d9d9;
+  border-radius:  4px;
+  margin-bottom:  6px;
+  margin-right:   8px;
+}
+
+.ModalSelectBrVerde {
+  border-color: #00C62F !important;
+  width:        35%;
+}
+
+@media all and (min-width: 300px){
+  .counter{
+    flex-grow: 1;
+  }
+
+  .itemSearch{
+    flex-grow: 1;
+  }
+
+  .searchSelect{
+    flex-grow: 2;
+  }
+
+  .itemButton{
+    flex-grow: 1;
+  }
+}
+
+@media all and (max-width: 1200px){
+  .nav{
+    flex-direction: row; 
+  }
+
+  .counter{
+    order: 1;
+  }
+
+  .itemSearch{
+    order: 2;
+    width: 30%;
+  }
+
+  .searchSelect{
+    order: 3;
+    width: 40%;
+  }
+
+  .itemButton{
+    order: 4;
+  }
+}
+
+@media all and (max-width: 1150px){
+  .counter{
+    order: 1;
+    width: 1%;
+  }
+
+  .itemSearch{
+    order: 2;
+    width: 20%;
+  }
+
+  .searchSelect{
+    order: 3;
+    width: 30%;
+  }
+
+  .itemButton{
+    position: absolute;
+    right: 20px;
+    margin-top: 50px;
+  }
+}
+
+@media all and (max-width: 962px){
+  .itemSearch{
+    width: 10%;
+  }
+
+  .searchSelect{
+    width: 35%;
+
+    Select {
+      width: 20%;
+    }
+  }
+}
+
+@media all and (max-width: 804px){
+  .counter{
+    width: 5%;
+  }
+
+  .itemSearch{
+    width: 15%;
+  }
+
+  .searchSelect{
+    text-align: initial;
+    padding-left: 10px;
+  }
+}
+
+@media all and (max-width: 720px){
+  .counter{
+    display: flex;
+    width: 0px;
+  }
+
+  .itemSearch{
+    width: 50%;
+  }
+
+  .searchSelect{
+    position: absolute;
+    width: 100%;
+    margin-top: 60px;
+    left: 21px;
+  }
+
+  .itemButton{
+    margin-top: 0px;
+  }
+}
+
+@media all and (max-width: 550px){
+  .nav{
+    text-align: initial;
+  }
+
+  .counter{
+    width: 15%;
+    display: none;
+  }
+
+  .itemSearch div {
+    width: 80%;
+  }
+
+  .itemButton{
+    margin-top: 0px;
+  }
+}

@@ -1,0 +1,180 @@
+.ModalCantidad {
+  width: 232px !important;
+  color: #000000;
+}
+
+.ModalCantidadMr {
+  margin-right: 8px !important;
+}
+
+.ModalCantidad input {
+  height: 10px !important;
+  padding-top: 6px !important;
+}
+
+.chipTable{
+  background: #c6f4f7 !important;
+  color: #00C62F !important;
+  font-weight: bold !important;
+}
+
+.chipTable svg{
+  color: #00C62F !important;
+}
+
+.chipTableNo{
+  background: #FFA3A3 !important;
+  color: #FF1818 !important;
+  font-weight: bold !important;
+}
+
+.typeAmount2{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.typeAmount2 svg{
+  color: rgb(13, 172, 172);
+  background: #c6f4f7;
+  border-radius: 6px;
+}
+
+.txtCobrado{
+  color: #00C62F !important;
+}
+
+.txtNoCobrado {
+  color: #f52121;
+  font-weight: bold;
+}
+
+.typeAmount1{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.typeAmount1 svg{
+  color: #00C62F;
+  background: #c6f4f7;
+  border-radius: 6px;
+}
+
+.table th{
+  font-weight: bold !important;
+  border: 0; border-bottom:1px solid #fff
+}
+
+.table td{
+  border: 0; border-bottom:1px solid #fff
+}
+
+
+/* ################## */
+/* Table responsive's styles */
+
+.btnEdit{
+  float: right;
+  margin-top: -8px;
+}
+
+.results {
+  display: block ruby;
+}
+
+.conten{
+  display: flex;
+  flex-direction: column;
+  width: 96%;
+}
+
+.resultResponsive{
+  border: 1px solid #D9D9D9;
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.columnas{
+   column-count: 2;
+   column-gap: 20px;
+   text-align: left;
+   list-style: none;
+}
+
+.columnas li{
+  font-weight: 400;
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+
+.columnas li p{
+  font-weight: 300;
+  font-size: 16px;
+}
+
+.ModalFormText {
+  width: 100%;
+  height: 26px;
+  font: 14px 'Readex Pro', sans-serif;
+  box-sizing: border-box;
+  padding: 4px 11px;
+  color: rgba(0, 0, 0, 0.88);
+  line-height: 1.5714285714285714;
+  background: #ffffff;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.ModalCobrar
+{
+  padding: 50px 0px !important;
+}
+
+.ModalCobrar span.icon-icoCobrar
+{
+  font-size: 40px !important;
+}
+
+.ModalCobrar p {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.LblFilter {
+  display: inline-block;
+  padding-right: 8px;
+  padding-left: 3px;
+  margin-top: -7px;
+}
+
+.LblFilter {
+  display: inline-block;
+  padding-right: 8px;
+  padding-left: 3px;
+  margin-top: -7px;
+}
+
+.nav{
+  display: flex;
+}
+
+.btnCreate{
+  margin-top: 21px;
+  width: 15%;
+}
+
+@media all and (max-width: 1150px){
+  .divTable{
+    margin-top: 30px;
+  }
+}
+
+@media all and (max-width: 717px){
+  .divTable{
+    display: none;
+  }
+}

@@ -1,0 +1,128 @@
+@import "../../../sass/variables";
+
+.ModalForm input {
+  margin-bottom: 6px;
+}
+
+.ModalForm input::-webkit-input-placeholder, .ant-picker-input input::-webkit-input-placeholder
+{
+ 	color: $black-color !important;
+}
+
+.ModalForm input::-o-input-placeholder, .ant-picker-input input::-o-input-placeholder
+{
+ 	color: $black-color !important;
+}
+
+.ModalForm input::-ms-input-placeholder, .ant-picker-input input::-ms-input-placeholder
+{
+ 	color: $black-color !important;
+}
+
+.ModalForm input:-moz-input-placeholder, .ant-picker-input input:-moz-input-placeholder
+{
+ 	color: $black-color !important;
+}
+
+.ModalForm input::-moz-input-placeholder, .ant-picker-input input::-moz-input-placeholder
+{
+ 	color: $black-color !important;
+}
+
+.ModalSelect {
+  width: 232px;
+  height: 32px;
+  color: $black-color;
+  padding-left: 8px;
+  border: 1px solid $default-color;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  margin-right: 8px;
+}
+
+.ModalCantidad {
+  width: 225px;
+  color: $black-color;
+}
+
+.ModalDate {
+  width: 225px;
+  color: $black-color;
+  height: 28px;
+  border-radius: 5px;
+  border: 1px solid $gray-color;
+  color: $gray-color;
+  margin-left: 8px
+}
+
+.ModalCantidadMr {
+  margin-right: 8px !important;
+}
+
+.ModalCantidad input {
+  height: 10px !important;
+  padding-top: 6px !important;
+}
+
+.btnCreateAccount{
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  background: $main-color !important;
+  border-radius: 10px !important;
+  text-transform: full-size-kana !important;
+  padding: 5px 14px !important;
+}
+
+.btnIcon{
+  display: none;
+}
+
+@media all and (max-width: 717px){
+  .itemButton{
+    position: absolute;
+    right: 30px;
+  }
+}
+
+@media all and (max-width: 1107px){
+  .itemButton2{
+    position: absolute;
+    right: 20px;
+  }
+}
+
+@media all and (max-width: 720px){
+  .itemButton2{
+    position: fixed;
+    right: 10px;
+    bottom: 40px;
+  }
+
+  .btnText{
+    display: none;
+  }
+
+  .btnIcon{
+    display: block;
+    background: $main-color;
+    border-radius: 25px;
+    height: 50px;
+    width: 50px;
+    
+    svg{
+      color: white;
+      margin-top: 12px;
+      margin: 13px 0px 0px -11px;
+      position: absolute;
+      cursor: pointer;
+    }
+  }
+  
+}
+
+@media all and (max-width: 400px){
+  .btnIcon{
+   margin-right: 28px;
+  }
+  
+}

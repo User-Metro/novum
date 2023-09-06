@@ -1,0 +1,1 @@
+export { ResponsiveDesing } from './responsive'

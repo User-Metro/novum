@@ -1,0 +1,1 @@
+export { ModalBank } from './modalBank';
